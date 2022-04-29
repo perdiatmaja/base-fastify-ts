@@ -1,4 +1,4 @@
-import { Multipart } from './../../../node_modules/fastify-multipart/index.d';
+import { Multipart } from '../../../node_modules/fastify-multipart/index.d';
 import fs from 'fs-extra'
 import { v4 as uuid } from 'uuid'
 import AppLogger from './logger.utils';
@@ -15,7 +15,6 @@ export const FiletCategory = {
         PROMO: "/img/promo/" as FileCategoryType
     }
 }
-
 
 class FileUtils {
 
