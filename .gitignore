@@ -1,0 +1,11 @@
+package-lock.json
+node_modules
+.env
+.env.*
+.vscode
+target
+json
+secret-key
+/log
+*.js
+/build
