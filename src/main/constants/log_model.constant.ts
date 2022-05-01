@@ -8,7 +8,6 @@ const LogTable = {
         ADMIN_LOGIN: 'admin_login'
     },
     userType: {
-        AGENT: 'agent',
         ADMIN: 'admin'
     }
 }
