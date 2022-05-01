@@ -1,9 +1,8 @@
 import urlPathConfig from '../../configs/json/url_path.config.json'
-import erpPathConfig from '../../configs/json/erp_path.config.json'
 import basicAuthConfig from '../../configs/json/basic_auth.config.json'
 import UnauthorizedAccessError from '../../error/unauthorized_access.error'
 import SecurityUtil from '../../utils/security.util'
-import { ERP_ROUTE_PREFIX } from '../../constants/routes.constant'
+import { MAIN_PREFIX } from '../../constants/routes.constant'
 import { BasicAuthResult } from 'basic-auth'
 import { FastifyRequest } from 'fastify'
 import UrlUtil from '../../utils/url.utils'
@@ -16,7 +15,6 @@ export interface UserSession {
 
 const urlPathMap = new Map(Object.entries(urlPathConfig))
 const basicAuthMap = new Map(Object.entries(basicAuthConfig))
-const erpPathMap = new Map(Object.entries(erpPathConfig))
 
 const needToken = (path: string, authStr?: string): boolean => {
     if (!path) {
@@ -40,8 +38,8 @@ const needToken = (path: string, authStr?: string): boolean => {
 }
 
 const getPathMap = (path: string): any => {
-    if (path.startsWith(ERP_ROUTE_PREFIX)) {
-        return erpPathMap
+    if (path.startsWith(MAIN_PREFIX)) {
+        return urlPathConfig
     }
 
     return urlPathMap

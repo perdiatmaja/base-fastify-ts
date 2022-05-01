@@ -1,0 +1,37 @@
+@startuml Before Services
+Boundary app
+control onRequest
+control onSend
+control onError
+control router
+
+app -> onRequest: Generate Current Time
+note over onRequest, router: {requestTime}
+
+onRequest -> router: log request param
+router -> router: trigger getSession
+router -> router: check authorization path
+
+alt authorization path not found
+    router -> onError: throw UnauthorizedAccessError
+    onError -> onSend: return response
+    else
+        alt token/jwt unnecessary
+            router -> onSend: return response
+        else
+            router -> router: get jwt
+            router -> router: verify jwt
+        alt invalid jwt
+            router -> onError: throw InvalidTokenError
+            onError -> onSend: return response
+        else
+            router -> router: return user session
+            router -> onSend: return response
+        end
+    end
+end
+
+onSend -> onSend: generate request id, log process time
+note over onSend, app: {code, message, data(optional), requestId}
+onSend -> app: return response
+@enduml
