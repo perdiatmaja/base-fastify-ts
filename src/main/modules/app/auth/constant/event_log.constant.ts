@@ -1,4 +1,4 @@
-const LogTable = {
+const EventLogConstant = {
     status: {
         SUCCESS: 1,
         FAILED: -1
@@ -12,4 +12,4 @@ const LogTable = {
     }
 }
 
-export default LogTable
+export default EventLogConstant
