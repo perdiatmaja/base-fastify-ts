@@ -11,4 +11,5 @@ To run this app first, type this:
 Then you can run it by type this on terminal:
 - local: npm run local
 - prod: npm run prod
+
 Or you can just use "Run and Debug" on left bar for VS Code
