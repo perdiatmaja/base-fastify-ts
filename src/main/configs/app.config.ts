@@ -7,7 +7,7 @@ import onErrorHook from './hook/on_error.hook';
 import onPrevalidationHook from './hook/on_prevalidation.hook';
 import onRequestHook from './hook/on_request.hook';
 import onSendHook from './hook/on_send.hook';
-import SecureSessionPlugin from 'fastify-secure-session';
+import SecureSessionPlugin from '@fastify/secure-session';
 import fs from 'fs'
 import { join } from 'path';
 import EnvConfig from '../constants/env_config.constant';
