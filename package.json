@@ -19,7 +19,7 @@
     "basic-auth": "^2.0.1",
     "csv-parse": "^5.0.4",
     "dotenv": "^16.0.0",
-    "fastify": "^3.27.4",
+    "fastify": "^4.13.0",
     "fastify-multipart": "^5.3.1",
     "fastify-secure-session": "^3.0.0",
     "fs-extra": "^10.1.0",

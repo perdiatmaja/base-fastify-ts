@@ -1,0 +1,14 @@
+version: '3'
+services:
+  lms_service:
+    container_name: be_service
+    env_file:
+      - .env
+    build: .
+    volumes:
+      - type: bind
+        source: /var/logs/be
+        target: /usr/app/log
+      - type: bind
+        source: /assets/
+        target: /assets/
