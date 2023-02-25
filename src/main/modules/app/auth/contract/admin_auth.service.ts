@@ -4,7 +4,7 @@ import LoginAdminDTO from "../../../domain/admin/dto/login_admin.dto";
 import loginAdminDTOMapper from '../../../domain/admin/mapper/admin_login_dto.mapper';
 import AdminAuthContract, { LoginAdminRequest } from "./admin_auth.contract";
 import IncorrectPasswordError from '../../../../error/incorrect_password.error';
-import GetAdminByEmailUseCase from '../../../domain/admin/usecase/get_admin_by_email.usecase';
+import GetAdminByEmailUseCase from '../../../domain/admin/interactor/get_admin_by_email.interactor';
 import EventLogConstant from '../constant/event_log.constant';
 
 @injectable()

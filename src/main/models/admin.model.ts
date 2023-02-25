@@ -1,6 +1,6 @@
-import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, DataType, Table } from "sequelize-typescript";
 import TABLE_NAME from "../constants/table_name.constant";
-import BaseModel from "./base.model";
+import BaseExternalModel from "./base_external.model";
 
 export interface AdminAttributes {
     id: string
@@ -9,18 +9,11 @@ export interface AdminAttributes {
     password: string
     role: number
     status: number
-    avatarUri?: string
+    avatar_uri?: string
 }
 
 @Table({ modelName: TABLE_NAME.ADMIN })
-class AdminModel extends BaseModel<AdminAttributes> implements AdminAttributes {
-    @PrimaryKey
-    @Column({
-        type: DataType.UUID,
-        defaultValue: DataType.UUIDV4
-    })
-    id!: string
-
+class AdminModel extends BaseExternalModel<AdminAttributes> implements AdminAttributes {
     @Column({
         type: DataType.STRING(30),
         allowNull: false,
@@ -58,7 +51,7 @@ class AdminModel extends BaseModel<AdminAttributes> implements AdminAttributes {
         type: DataType.STRING,
         allowNull: true
     })
-    avatarUri?: string
+    avatar_uri?: string
 }
 
 export default AdminModel

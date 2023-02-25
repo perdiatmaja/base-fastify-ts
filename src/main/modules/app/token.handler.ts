@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 import InvalidTokenError from '../../error/invalid_token.error';
 import AppLogger from '../../utils/logger.utils';
 import SecurityUtil from '../../utils/security.util';
-import GetAdminByEmailUseCase from '../domain/admin/usecase/get_admin_by_email.usecase';
+import GetAdminByEmailUseCase from '../domain/admin/interactor/get_admin_by_email.interactor';
 import EventLogConstant from './auth/constant/event_log.constant';
 import { UserSession } from './get_session';
 
