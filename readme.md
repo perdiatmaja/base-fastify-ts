@@ -6,8 +6,9 @@ This is a base app come from Node JS with framework Fastify, typescript, clean a
 
 ## **NOTE:**
 
-For module fastify-multipart use specific version or install by this command:\
-npm i --save fastify-multipart@5.3.1
-
-For module fastify-secure-session use specific version or install by this command:\
-npm i fastify-secure-session@5.3.0
+To run this app first, type this:
+./install.sh
+Then you can run it by type this on terminal:
+- local: npm run local
+- prod: npm run prod
+Or you can just use "Run and Debug" on left bar for VS Code
