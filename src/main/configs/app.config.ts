@@ -12,7 +12,7 @@ import fs from 'fs'
 import { join } from 'path';
 import EnvConfig from '../constants/env_config.constant';
 import RouteNotFoundError from '../error/route_not_found.error';
-import fastifyMultipart from 'fastify-multipart';
+import fastifyMultipart from '@fastify/multipart';
 
 @singleton()
 class AppConfig {
