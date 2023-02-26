@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply, HookHandlerDoneFunction } from 'fastify';
 
-const onPrevalidationHook = (request: FastifyRequest, _: FastifyReply, done: HookHandlerDoneFunction) => {
+const onPrevalidationHook = (_: FastifyRequest, __: FastifyReply, done: HookHandlerDoneFunction) => {
     done()
 }
 

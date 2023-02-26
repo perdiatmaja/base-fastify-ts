@@ -5,7 +5,7 @@ export interface CustFastifyReq extends FastifyRequest {
     requestTime: Date
 }
 
-const onRequestHook = (request: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => {
+const onRequestHook = (request: FastifyRequest, _: FastifyReply, done: HookHandlerDoneFunction) => {
     AppLogger.writeInfo(`Request: ${request.method}, Path: ${request.routerPath}`);
     (request as CustFastifyReq).requestTime = new Date();
     done()

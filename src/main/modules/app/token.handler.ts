@@ -4,7 +4,6 @@ import InvalidTokenError from '../../error/invalid_token.error';
 import AppLogger from '../../utils/logger.utils';
 import SecurityUtil from '../../utils/security.util';
 import GetAdminByEmailUseCase from '../domain/admin/interactor/get_admin_by_email.interactor';
-import EventLogConstant from './auth/constant/event_log.constant';
 import { UserSession } from './get_session';
 
 const getEventLogUseCase = container.resolve(delay(() => GetAdminByEmailUseCase))
@@ -15,7 +14,7 @@ export const getAdminData = async (token?: string): Promise<UserSession> => {
     const tokenData = SecurityUtil.verifyErpJwt(token)
     const loginEvent = await getEventLogUseCase.blockingExecute({email: ""})
 
-    if (loginEvent.name !== EventLogConstant.type.ADMIN_LOGIN) {
+    if (loginEvent.name !== "") {
         throw new InvalidTokenError()
     }
 

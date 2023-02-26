@@ -1,6 +1,5 @@
 const RepositoryToken = {
-    ADMIN_REPOSITORY: 'admin_repository',
-    LOG_REPOSITORY: 'log_repository'
+    ADMIN_REPOSITORY: 'admin_repository'
 }
 
 export default RepositoryToken

@@ -1,6 +1,5 @@
 const TABLE_NAME = {
-    ADMIN: 'admin',
-    EVENT_LOG: 'event_log'
+    ADMIN: 'admin'
 }
 
 export default TABLE_NAME
