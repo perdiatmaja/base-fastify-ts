@@ -1,8 +1,8 @@
-import PathMapping from "../modules/app/path_mapping"
+import PathMapping from "../../modules/app/path_mapping"
 
 const PATH_MAPPINGS = "pathMappings"
 
-function POST(path: string) {
+function AuthRequired() {
     return function (
         target: any,
         propertyKey: string,
@@ -17,10 +17,9 @@ function POST(path: string) {
 
         if (!pathMapping) {
             pathMapping = {}
-        }
-
-        pathMapping.path = path
-        pathMapping.type = "POST"
+        } 
+        
+        pathMapping.auth = true
         pathMappings.set(propertyKey, pathMapping);
 
         (target[PATH_MAPPINGS] as Map<string, PathMapping>) = pathMappings
@@ -29,4 +28,4 @@ function POST(path: string) {
     }
 }
 
-export default POST
+export default AuthRequired

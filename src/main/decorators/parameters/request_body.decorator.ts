@@ -1,6 +1,6 @@
 import ParameterDescription from "../../modules/app/parameter_description";
 
-function RequestBody(target: Object, propertyKey: string, parameterIndex: number) {
+export default function setRequestBodyProeprty(target: Object, propertyKey: string, parameterIndex: number) {
     const router = (target as any)
     let parameterDescriptions: ParameterDescription[] = router[propertyKey].parameterDescriptions ?? []
 
@@ -12,5 +12,3 @@ function RequestBody(target: Object, propertyKey: string, parameterIndex: number
 
     return router
 }
-
-export default RequestBody

@@ -1,0 +1,1 @@
+export {default as RequestBody} from "./request_body.decorator"

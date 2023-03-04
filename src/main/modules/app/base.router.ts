@@ -33,7 +33,7 @@ abstract class BaseRouter {
             switch (pathMapping.type) {
                 case POST:
                     this.registerPostRoute(fullPath, async (req) => {
-                        return await this.invokeMethod(req, key, pathMapping)
+                        return await router[key](req)
                     })
                     break;
                 case GET:

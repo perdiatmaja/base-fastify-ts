@@ -4,10 +4,10 @@ import ContractToken from "../../../constants/contract.token";
 import BaseRouter from "../base.router";
 import AdminAuthContract from "./contract/admin_auth.contract";
 import LoginAdminBody from "./schema/login_admin.body";
-import POST from "../../../decorators/post_mapping.decorator";
 import PathMapping from "../../../decorators/path_mapping.decorator";
 import LoginAdminDTO from "../../domain/admin/dto/login_admin.dto";
-import RequestBody from "../../../decorators/parameters/request_body.decorator";
+import { POST } from "../../../decorators/method";
+import { RequestBody } from "../../../decorators/parameters";
 
 @injectable()
 @PathMapping("/v1/admin")
