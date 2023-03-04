@@ -3,11 +3,13 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { inject } from "tsyringe";
 import Application from "../../application";
 import PathMapping from './path_mapping';
+import ParameterDescription from './parameter_description';
 
 const MAIN_PATH = "mainPath"
 const POST = "POST"
 const GET = "GET"
 const PUT = "PUT"
+const REQUEST_BODY = "REQUEST_BODY"
 
 abstract class BaseRouter {
     protected readonly application: Application
@@ -30,7 +32,18 @@ abstract class BaseRouter {
             switch (pathMapping.type) {
                 case POST:
                     this.registerPostRoute(fullPath, async (req, rep) => {
-                        await router[key](req, rep, pathMapping.jwt? await getSession(req): undefined)
+                        const method = router[key]
+                        const args: any[] = []
+                        const parameterDescriptions: ParameterDescription[] = method.parameterDescriptions ?? []
+                        
+                        parameterDescriptions.forEach(parameterDescription => {
+                            switch (parameterDescription.type) {
+                                case REQUEST_BODY:
+                                    args.push(req.body)
+                            }
+                        })
+
+                        await router[key](...args)
                     })
                     break;
                 case GET:
