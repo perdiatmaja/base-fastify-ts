@@ -2,7 +2,6 @@ import getSession, { UserSession } from './get_session';
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { inject } from "tsyringe";
 import Application from "../../application";
-import AppLogger from "../../utils/logger.utils";
 import PathMapping from './path_mapping';
 
 const MAIN_PATH = "mainPath"
@@ -10,7 +9,6 @@ const POST = "POST"
 const GET = "GET"
 const PUT = "PUT"
 
-const MULTIPART_REGEX = /multipart/g
 abstract class BaseRoute {
     protected readonly application: Application
     
@@ -25,21 +23,23 @@ abstract class BaseRoute {
     initRoute(): void {
         const router: any = this as any
         const pathMappings = router["pathMappings"] as Map<string, PathMapping>
+        const mainPath = this.getMainPath()
 
         pathMappings.forEach((pathMapping: PathMapping, key: string) => {
+            const fullPath = mainPath + pathMapping.path!
             switch (pathMapping.type) {
                 case POST:
-                    this.registerPostRoute(pathMapping.path!, async (req, rep) => {
+                    this.registerPostRoute(fullPath, async (req, rep) => {
                         await router[key](req, rep, pathMapping.jwt? await getSession(req): undefined)
                     })
                     break;
                 case GET:
-                    this.registerGetRoute(pathMapping.path!, async (req, rep) => {
+                    this.registerGetRoute(fullPath, async (req, rep) => {
                         await router[key](req, rep, pathMapping.jwt ? await getSession(req) : undefined)
                     })
                     break;
                 case PUT:
-                    this.registerPutRoute(pathMapping.path!, async (req, rep) => {
+                    this.registerPutRoute(fullPath, async (req, rep) => {
                         await router[key](req, rep, pathMapping.jwt ? await getSession(req) : undefined)
                     })
                     break;
@@ -53,7 +53,7 @@ abstract class BaseRoute {
     }
 
     registerGetRoute<Q>(path: string, onRoute: (request: FastifyRequest<{ Querystring: Q }>, reply: FastifyReply, userSession?: UserSession) => Promise<void>) {
-        this.fastify.get(this.getMainPath() + path, async (request: FastifyRequest<{ Querystring: Q }>, reply: FastifyReply, userSession?: UserSession) => {
+        this.fastify.get(path, async (request: FastifyRequest<{ Querystring: Q }>, reply: FastifyReply, userSession?: UserSession) => {
             try {
                 await onRoute(request, reply, userSession)
             } catch (error) {
@@ -63,7 +63,7 @@ abstract class BaseRoute {
     }
 
     registerPostRoute<B>(path: string, onRoute: (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => Promise<void> | Promise<any>) {
-        this.fastify.post(this.getMainPath() + path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => {
+        this.fastify.post(path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => {
             try {
                 const response = await onRoute(request, reply, userSession)
                 reply.send(this.sendSuccess(response))
@@ -74,7 +74,7 @@ abstract class BaseRoute {
     }
 
     registerPutRoute<B>(path: string, onRoute: (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => Promise<void>) {
-        this.fastify.put(this.getMainPath() + path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => {
+        this.fastify.put(path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => {
             try {
                 await onRoute(request, reply, userSession)
             } catch (error) {
@@ -83,24 +83,11 @@ abstract class BaseRoute {
         })
     }
 
-    protected sendSuccess(data?: any) {
+    private sendSuccess(data?: any) {
         return {
             code: 1000,
             message: "Success.",
             data: data
-        }
-    }
-
-    private logRequest(request: FastifyRequest) {
-        if (request.method === "GET") {
-            AppLogger.writeInfo(`Params: ${JSON.stringify(request.query)}`)
-            return
-        }
-
-        const contentType = request.headers['content-type'] ?? ""
-
-        if (MULTIPART_REGEX.exec(contentType) === null) {
-            AppLogger.writeInfo(`Params: ${JSON.stringify(request.body)}`)
         }
     }
 }
