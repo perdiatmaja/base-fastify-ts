@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import Application from "../../../application";
 import ContractToken from "../../../constants/contract.token";
-import BaseRoute from "../base.route";
+import BaseRouter from "../base.router";
 import AdminAuthContract from "./contract/admin_auth.contract";
 import LoginAdminBody from "./schema/login_admin.body";
 import { FastifyRequest } from "fastify";
@@ -11,7 +11,7 @@ import LoginAdminDTO from "../../domain/admin/dto/login_admin.dto";
 
 @injectable()
 @PathMapping("/v1/admin")
-class AdminAuthRoute extends BaseRoute {
+class AdminAuthRouter extends BaseRouter {
     private readonly service: AdminAuthContract
 
     constructor(application: Application, @inject(ContractToken.ADMIN_AUTH_CONTRACT) service: AdminAuthContract) {
@@ -30,4 +30,4 @@ class AdminAuthRoute extends BaseRoute {
     }
 }
 
-export default AdminAuthRoute
+export default AdminAuthRouter

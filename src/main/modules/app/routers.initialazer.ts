@@ -1,13 +1,13 @@
 import { singleton } from 'tsyringe';
-import AdminAuthRoute from './auth/admin_auth.route';
-import BaseRoute from './base.route';
+import AdminAuthRouter from './auth/admin_auth.router';
+import BaseRouter from './base.router';
 
 @singleton()
 class RoutesInitialazer {
-    private readonly routes: BaseRoute[] = []
+    private readonly routes: BaseRouter[] = []
 
     constructor(
-        adminAuthRoute: AdminAuthRoute
+        adminAuthRoute: AdminAuthRouter
     ) {
         this.routes.push(adminAuthRoute)
     }

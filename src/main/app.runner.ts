@@ -4,7 +4,7 @@ import Application from "./application";
 import registerContractDependency from "./di/register_contract.dependency";
 import registerRepositoryDependency from "./di/register_repository.dependency";
 import DBInitialazer from "./configs/db.initialazer";
-import RoutesInitialazer from "./modules/app/routes.initialazer";
+import RoutesInitialazer from "./modules/app/routers.initialazer";
 import registerAppDependecny from "./di/register_app.dependency";
 import registerDBDependecny from "./di/register_db.dependency";
 

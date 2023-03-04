@@ -9,7 +9,7 @@ const POST = "POST"
 const GET = "GET"
 const PUT = "PUT"
 
-abstract class BaseRoute {
+abstract class BaseRouter {
     protected readonly application: Application
     
     constructor(@inject(Application) application: Application) {
@@ -92,4 +92,4 @@ abstract class BaseRoute {
     }
 }
 
-export default BaseRoute
+export default BaseRouter
