@@ -4,9 +4,10 @@ import ContractToken from "../../../constants/contract.token";
 import BaseRoute from "../base.route";
 import AdminAuthContract from "./contract/admin_auth.contract";
 import LoginAdminBody from "./schema/login_admin.body";
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyRequest } from "fastify";
 import POST from "../../../decorators/post_mapping.decorator";
 import PathMapping from "../../../decorators/path_mapping.decorator";
+import LoginAdminDTO from "../../domain/admin/dto/login_admin.dto";
 
 @injectable()
 @PathMapping("/v1/admin")
@@ -18,14 +19,14 @@ class AdminAuthRoute extends BaseRoute {
         this.service = service
     }
 
-
     @POST("/auth/login")
-    public async login(request: FastifyRequest<{ Body: LoginAdminBody }>, reply: FastifyReply): Promise<any> {
+    public async login(request: FastifyRequest<{ Body: LoginAdminBody }>): Promise<LoginAdminDTO> {
         const adminData = await this.service.loginAdmin({
             email: request.body.email,
             password: request.body.password
         })
-        reply.send(this.sendSuccess(adminData))
+        
+        return adminData
     }
 }
 

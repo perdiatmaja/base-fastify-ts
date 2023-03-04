@@ -24,23 +24,23 @@ abstract class BaseRoute {
 
     initRoute(): void {
         const router: any = this as any
-        const pathMappings = router["pathMappings"] as PathMapping[]
+        const pathMappings = router["pathMappings"] as Map<string, PathMapping>
 
-        pathMappings.forEach(pathMapping => {
+        pathMappings.forEach((pathMapping: PathMapping, key: string) => {
             switch (pathMapping.type) {
                 case POST:
-                    this.registerPostRoute(pathMapping.path, async (req, rep) => {
-                        await router[pathMapping.key](req, rep)
+                    this.registerPostRoute(pathMapping.path!, async (req, rep) => {
+                        await router[key](req, rep, pathMapping.jwt? await getSession(req): undefined)
                     })
                     break;
                 case GET:
-                    this.registerGetRoute(pathMapping.path, async (req, rep) => {
-                        await router[pathMapping.key](req, rep)
+                    this.registerGetRoute(pathMapping.path!, async (req, rep) => {
+                        await router[key](req, rep, pathMapping.jwt ? await getSession(req) : undefined)
                     })
                     break;
                 case PUT:
-                    this.registerPutRoute(pathMapping.path, async (req, rep) => {
-                        await router[pathMapping.key](req, rep)
+                    this.registerPutRoute(pathMapping.path!, async (req, rep) => {
+                        await router[key](req, rep, pathMapping.jwt ? await getSession(req) : undefined)
                     })
                     break;
             }
@@ -53,19 +53,20 @@ abstract class BaseRoute {
     }
 
     registerGetRoute<Q>(path: string, onRoute: (request: FastifyRequest<{ Querystring: Q }>, reply: FastifyReply, userSession?: UserSession) => Promise<void>) {
-        this.fastify.get(this.getMainPath() + path, async (request: FastifyRequest<{ Querystring: Q }>, reply: FastifyReply) => {
+        this.fastify.get(this.getMainPath() + path, async (request: FastifyRequest<{ Querystring: Q }>, reply: FastifyReply, userSession?: UserSession) => {
             try {
-                await onRoute(request, reply, await getSession(request))
+                await onRoute(request, reply, userSession)
             } catch (error) {
                 reply.send(error)
             }
         })
     }
 
-    registerPostRoute<B>(path: string, onRoute: (request: FastifyRequest<{ Body: B }>, reply: FastifyReply) => Promise<void>) {
-        this.fastify.post(this.getMainPath() + path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply) => {
+    registerPostRoute<B>(path: string, onRoute: (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => Promise<void> | Promise<any>) {
+        this.fastify.post(this.getMainPath() + path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => {
             try {
-                await onRoute(request, reply)
+                const response = await onRoute(request, reply, userSession)
+                reply.send(this.sendSuccess(response))
             } catch (error) {
                 reply.send(error)
             }
@@ -73,9 +74,9 @@ abstract class BaseRoute {
     }
 
     registerPutRoute<B>(path: string, onRoute: (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => Promise<void>) {
-        this.fastify.put(this.getMainPath() + path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply) => {
+        this.fastify.put(this.getMainPath() + path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply, userSession?: UserSession) => {
             try {
-                await onRoute(request, reply, await getSession(request))
+                await onRoute(request, reply, userSession)
             } catch (error) {
                 reply.send(error)
             }

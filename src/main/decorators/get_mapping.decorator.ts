@@ -8,15 +8,22 @@ function GET(path: string) {
         propertyKey: string,
         _: PropertyDescriptor
     ) {
-        if (!target[PATH_MAPPINGS]) {
-            target[PATH_MAPPINGS] = [];
+        let pathMappings = target[PATH_MAPPINGS] as Map<string, PathMapping>
+        if (!pathMappings) {
+            pathMappings = new Map()
         }
 
-        (target[PATH_MAPPINGS] as PathMapping[]).push({
-            key: propertyKey,
-            path: path,
-            type: "GET"
-        })
+        let pathMapping = pathMappings.get(propertyKey);
+
+        if (!pathMapping) {
+            pathMapping = {}
+        }
+        
+        pathMapping.path = path
+        pathMapping.type = "POST"
+        pathMappings.set(propertyKey, pathMapping);
+
+        (target[PATH_MAPPINGS] as Map<string, PathMapping>) = pathMappings
 
         return target
     }

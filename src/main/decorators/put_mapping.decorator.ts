@@ -8,15 +8,22 @@ function PUT(path: string) {
         propertyKey: string,
         _: PropertyDescriptor
     ) {
-        if (!target[PATH_MAPPINGS]) {
-            target[PATH_MAPPINGS] = [];
+        let pathMappings = target[PATH_MAPPINGS] as Map<string, PathMapping>
+        if (!pathMappings) {
+            pathMappings = new Map()
         }
 
-        (target[PATH_MAPPINGS] as PathMapping[]).push({
-            key: propertyKey,
-            path: path,
-            type: "PUT"
-        })
+        let pathMapping = pathMappings.get(propertyKey);
+
+        if (!pathMapping) {
+            pathMapping = {}
+        }
+        
+        pathMapping.path = path
+        pathMapping.type = "PUT"
+        pathMappings.set(propertyKey, pathMapping);
+
+        (target[PATH_MAPPINGS] as Map<string, PathMapping>) = pathMappings
 
         return target
     }

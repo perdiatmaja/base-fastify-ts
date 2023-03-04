@@ -1,7 +1,8 @@
 interface PathMapping {
-    key: string
-    type: string
-    path: string
+    type?: string
+    path?: string
+    jwt?: boolean
+    auth?: boolean
 }
 
 export default PathMapping
