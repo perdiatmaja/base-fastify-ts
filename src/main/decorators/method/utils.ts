@@ -34,7 +34,7 @@ export function setPathMapping(path: string,
 export function setMethod(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value
 
-    target[propertyKey] = function (req: FastifyRequest) {
+    target[propertyKey] = async function (req: FastifyRequest) {
         const params: any[] = []
         const parameterDescriptions: ParameterDescription[] = method.parameterDescriptions ?? []
 
