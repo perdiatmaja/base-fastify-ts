@@ -9,7 +9,7 @@ function AuthRequired(target: any,
     let pathMappings = getPathMappings(target)
     let pathMapping: PathMapping = pathMappings.get(propertyKey) ?? {};
 
-    pathMapping.auth = true
+    pathMapping.authRequired = true
 
     pathMappings.set(propertyKey, pathMapping);
 

@@ -12,7 +12,7 @@ const adminDTOMapper = (admin: AdminAttributes): AdminDTO => {
 }
 
 const tokenMapper = (loginId: string): string => {
-    return SecurityUtil.signErpJwt({
+    return SecurityUtil.signJwt({
         loginId
     })
 }

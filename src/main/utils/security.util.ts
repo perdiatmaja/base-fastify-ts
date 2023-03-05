@@ -27,29 +27,15 @@ class SecurityUtil {
         return authStr ? auth.parse(authStr) : undefined
     }
 
-    static signErpJwt(data: any): string {
+    static signJwt(data: any): string {
         return jwt.sign({
             data
         }, process.env.ERP_JWT_SECRET as string, { expiresIn: 30 * 24 * 60 * 60 });
     }
 
-    static signMobileJwt(data: any): string {
-        return jwt.sign({
-            data
-        }, process.env.MOBILE_JWT_SECRET as string, { expiresIn: 30 * 24 * 60 * 60 });
-    }
-
-    static verifyErpJwt(jwtToken: string): JWTData {
+    static verifyJwt(jwtToken: string): JWTData {
         try {
             return jwt.verify(jwtToken, process.env.ERP_JWT_SECRET as string) as JWTData
-        } catch (error) {
-            throw new InvalidTokenError()
-        }
-    }
-
-    static verifyMobileJwt(jwtToken: string): JWTData {
-        try {
-            return jwt.verify(jwtToken, process.env.MOBILE_JWT_SECRET as string) as JWTData
         } catch (error) {
             throw new InvalidTokenError()
         }

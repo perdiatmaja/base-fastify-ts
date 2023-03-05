@@ -1,8 +1,8 @@
 interface PathMapping {
     type?: string
     path?: string
-    jwt?: boolean
-    auth?: boolean
+    jwtRequired?: boolean
+    authRequired?: boolean
     roleLevel?: number
 }
 

@@ -1,7 +1,9 @@
 import { FastifyRequest } from "fastify"
 import ParameterDescription from "../../modules/app/parameter_description"
 import PathMapping from "../../modules/app/path_mapping"
+import { JWTData } from "../../utils/security.util"
 import checkBasicAuth from "./basich_auth.handler"
+import getJwtData from "./jwt.handler"
 
 const PATH_MAPPINGS = "pathMappings"
 const REQUEST_BODY = "REQUEST_BODY"
@@ -46,12 +48,17 @@ export function setMethod(target: any, propertyKey: string, descriptor: Property
     target[propertyKey] = async function (req: FastifyRequest) {
         const params: any[] = []
         const pathMapping: PathMapping = getPathMapping(target, propertyKey)
-        const auth: boolean = pathMapping.auth ?? false
-        const jwt: boolean = pathMapping.jwt ?? false
+        const authRequired: boolean = pathMapping.authRequired ?? false
+        const jwtRequired: boolean = pathMapping.jwtRequired ?? false
         const parameterDescriptions: ParameterDescription[] = method.parameterDescriptions ?? []
+        let jwdData: JWTData | undefined = undefined
 
-        if (auth) {
+        if (authRequired) {
             checkBasicAuth(req, pathMapping.roleLevel!)
+        }
+
+        if (jwtRequired) {
+            jwdData = getJwtData(req)
         }
 
         for (const parameterDescription of parameterDescriptions) {
