@@ -55,7 +55,7 @@ const hasAuth = (level: number, auth: BasicAuthResult | undefined): boolean => {
     }
     const basicAuth = basicAuthMap.get(auth.name)
 
-    return basicAuth !== undefined && basicAuth.pass === auth.pass && basicAuth.role <= level
+    return basicAuth !== undefined && basicAuth.password === auth.pass && basicAuth.role <= level
 }
 
 const getPathConfig = (pathArr: string[], index: number = 0, currentConfig: any = urlPathMap): { token: boolean, level: number } => {

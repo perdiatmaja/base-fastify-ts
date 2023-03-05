@@ -8,6 +8,7 @@ import PathMapping from "../../../decorators/path_mapping.decorator";
 import LoginAdminDTO from "../../domain/admin/dto/login_admin.dto";
 import { POST } from "../../../decorators/method";
 import { RequestBody } from "../../../decorators/parameters";
+import AuthRequired from "../../../decorators/method/auth_required.decorator";
 
 @injectable()
 @PathMapping("/v1/admin")
@@ -19,6 +20,7 @@ class AdminAuthRouter extends BaseRouter {
         this.service = service
     }
 
+    @AuthRequired
     @POST("/auth/login")
     public async login(@RequestBody body: LoginAdminBody): Promise<LoginAdminDTO> {
         const adminData = await this.service.loginAdmin({

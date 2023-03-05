@@ -1,31 +1,21 @@
 import PathMapping from "../../modules/app/path_mapping"
+import { getPathMappings } from "./utils";
 
 const PATH_MAPPINGS = "pathMappings"
 
-function AuthRequired() {
-    return function (
-        target: any,
-        propertyKey: string,
-        _: PropertyDescriptor
-    ) {
-        let pathMappings = target[PATH_MAPPINGS] as Map<string, PathMapping>
-        if (!pathMappings) {
-            pathMappings = new Map()
-        }
+function AuthRequired(target: any,
+    propertyKey: string,
+    _: PropertyDescriptor) {
+    let pathMappings = getPathMappings(target)
+    let pathMapping: PathMapping = pathMappings.get(propertyKey) ?? {};
 
-        let pathMapping = pathMappings.get(propertyKey);
+    pathMapping.auth = true
 
-        if (!pathMapping) {
-            pathMapping = {}
-        } 
-        
-        pathMapping.auth = true
-        pathMappings.set(propertyKey, pathMapping);
+    pathMappings.set(propertyKey, pathMapping);
 
-        (target[PATH_MAPPINGS] as Map<string, PathMapping>) = pathMappings
+    (target[PATH_MAPPINGS] as Map<string, PathMapping>) = pathMappings
 
-        return target
-    }
+    return target
 }
 
 export default AuthRequired

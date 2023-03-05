@@ -1,4 +1,5 @@
-import PathMapping from "../modules/app/path_mapping"
+import PathMapping from "../../modules/app/path_mapping";
+import { getPathMappings } from "./utils";
 
 const PATH_MAPPINGS = "pathMappings"
 
@@ -8,18 +9,11 @@ function JwtRequired() {
         propertyKey: string,
         _: PropertyDescriptor
     ) {
-        let pathMappings = target[PATH_MAPPINGS] as Map<string, PathMapping>
-        if (!pathMappings) {
-            pathMappings = new Map()
-        }
-
-        let pathMapping = pathMappings.get(propertyKey);
-
-        if (!pathMapping) {
-            pathMapping = {}
-        }
+        let pathMappings = getPathMappings(target)
+        let pathMapping: PathMapping = pathMappings.get(propertyKey) ?? {};
         
         pathMapping.jwt = true
+
         pathMappings.set(propertyKey, pathMapping);
 
         (target[PATH_MAPPINGS] as Map<string, PathMapping>) = pathMappings
