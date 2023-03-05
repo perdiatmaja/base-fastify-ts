@@ -1,6 +1,6 @@
 import ParameterDescription from "../../modules/app/parameter_description";
 
-export default function setPathParamProeprty(paramName: string) {
+export default function setPathParamProperty(paramName: string) {
     return function (target: Object, propertyKey: string, parameterIndex: number) {
         const router = (target as any)
         let parameterDescriptions: ParameterDescription[] = router[propertyKey].parameterDescriptions ?? []

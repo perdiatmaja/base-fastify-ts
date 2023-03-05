@@ -1,6 +1,6 @@
 import ParameterDescription from "../../modules/app/parameter_description";
 
-export default function setNotEmptyProeprty(target: Object, propertyKey: string, parameterIndex: number) {
+export default function setNotEmptyProperty(target: Object, propertyKey: string, parameterIndex: number) {
     const router = (target as any)
     let parameterDescriptions: ParameterDescription[] = router[propertyKey].parameterDescriptions ?? []
 
