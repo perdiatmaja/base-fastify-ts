@@ -54,7 +54,8 @@ abstract class BaseRouter {
     registerGetRoute<Q>(path: string, onRoute: (request: FastifyRequest<{ Querystring: Q }>) => Promise<void>) {
         this.fastify.get(path, async (request: FastifyRequest<{ Querystring: Q }>, reply: FastifyReply) => {
             try {
-                await onRoute(request)
+                const response = await onRoute(request)
+                reply.send(this.sendSuccess(response))
             } catch (error) {
                 reply.send(error)
             }
@@ -75,7 +76,8 @@ abstract class BaseRouter {
     registerPutRoute<B>(path: string, onRoute: (request: FastifyRequest<{ Body: B }>) => Promise<void>) {
         this.fastify.put(path, async (request: FastifyRequest<{ Body: B }>, reply: FastifyReply) => {
             try {
-                await onRoute(request)
+                const response = await onRoute(request)
+                reply.send(this.sendSuccess(response))
             } catch (error) {
                 reply.send(error)
             }

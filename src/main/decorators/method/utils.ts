@@ -1,4 +1,5 @@
 import { FastifyRequest } from "fastify"
+import InvalidDataError from "../../error/invalid_data.error"
 import ParameterDescription from "../../modules/app/parameter_description"
 import PathMapping from "../../modules/app/path_mapping"
 import { JWTData } from "../../utils/security.util"
@@ -7,7 +8,8 @@ import getJwtData from "./jwt.handler"
 
 const PATH_MAPPINGS = "pathMappings"
 const REQUEST_BODY = "REQUEST_BODY"
-const USER_SESSION = "USER_SESSION"
+const PATH_PARAM = "PATH_PARAM"
+const QUERY_PARAM = "QUERY_PARAM"
 const DEFAULT_ROLE_LEVEL = 5
 
 export function getPathMappings(target: any) {
@@ -62,15 +64,52 @@ export function setMethod(target: any, propertyKey: string, descriptor: Property
         }
 
         for (const parameterDescription of parameterDescriptions) {
+            let param = undefined
             switch (parameterDescription.type) {
                 case REQUEST_BODY:
-                    params.push(req.body)
+                    param = req.body
                     break
-                case USER_SESSION:
+                case PATH_PARAM:
+                    param = (req.params as any)[parameterDescription.name ?? ""]
+                    break
+                case QUERY_PARAM:
+                    param = (req.query as any)[parameterDescription.name ?? ""]
                     break
             }
+
+            if (parameterDescription.empty && !param) {
+                throw new InvalidDataError()
+            }
+
+            params.push(param)
         }
 
         return method.apply(this, params)
     }
+}
+
+export default function getParamNames(func: Function) {
+    let str = func.toString()
+
+    str = str.replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/\/\/(.)*/g, '')
+        .replace(/{[\s\S]*}/, '')
+        .replace(/=>/g, '')
+        .trim()
+
+    var start = str.indexOf("(") + 1
+    var end = str.length - 1
+
+    var result = str.substring(start, end).split(", ")
+
+    const params: string[] = []
+
+    result.forEach(element => {
+        element = element.replace(/=[\s\S]*/g, '').trim()
+
+        if (element.length > 0)
+            params.push(element)
+    })
+
+    return params
 }
