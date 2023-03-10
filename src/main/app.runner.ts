@@ -18,8 +18,8 @@ const start = () => {
     const dbInitialazer = container.resolve(DBInitialazer)
     const app = container.resolve(Application)
 
-    dbInitialazer.initModels()
     routesInitialazer.initRoutes()
+    dbInitialazer.initModels()
     app.start()
 }
 

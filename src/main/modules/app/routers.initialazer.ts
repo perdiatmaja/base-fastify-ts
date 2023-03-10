@@ -13,7 +13,7 @@ class RoutesInitialazer {
     }
 
     initRoutes() {
-        this.routes.forEach((route) => route.initRoute())
+        console.log("Route initialazed")
     }
 }
 
