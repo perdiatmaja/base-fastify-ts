@@ -23,6 +23,7 @@ class AppConfig {
     }
 
     init() {
+        this.initDecoration()
         this.initOnRequest()
         this.initPreValidation()
         this.initOnSend()
@@ -71,6 +72,18 @@ class AppConfig {
             preValidation: onPrevalidationHook
         }, (req, rep) => {
             rep.send(new RouteNotFoundError((req.params as NotFoundRouteParams)['*']))
+        })
+    }
+
+    private initDecoration() {
+        this.fastify.decorate("userSession", {
+            external_id: undefined,
+            type: undefined,
+            role: -1
+        })
+
+        this.fastify.decorate("configAuth", {
+            role: -1
         })
     }
 

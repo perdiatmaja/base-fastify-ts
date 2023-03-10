@@ -9,7 +9,7 @@ const DIGEST_HEX = 'hex'
 
 export interface JWTData {
     data: {
-        loginId: string
+        tokenId: string
     }
 }
 

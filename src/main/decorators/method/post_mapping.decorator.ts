@@ -1,3 +1,4 @@
+import { POST } from "../../modules/app/http_method"
 import { setMethod, setPathMapping } from "./utils"
 
 export default function postMethod(path: string, roleLevel?: number) {
@@ -7,6 +8,6 @@ export default function postMethod(path: string, roleLevel?: number) {
         descriptor: PropertyDescriptor
     ) {
         setMethod(target, propertyKey, descriptor)
-        return setPathMapping(path, "POST", target, propertyKey, roleLevel)
+        return setPathMapping(path, POST, target, propertyKey, roleLevel)
     }
 }

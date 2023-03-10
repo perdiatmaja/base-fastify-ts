@@ -4,6 +4,7 @@ interface PathMapping {
     jwtRequired?: boolean
     authRequired?: boolean
     roleLevel?: number
+    userType?: number
 }
 
 export default PathMapping

@@ -7,7 +7,7 @@ import SecurityUtil from "../../utils/security.util";
 const AUTHORIZATION = "authorization"
 const basicAuthMap = new Map(Object.entries(basicAuthConfig))
 
-export default function checkBasicAuth(req: FastifyRequest, pathRoleLevel: number) {
+export default function getAndcheckConfigAuth(req: FastifyRequest, pathRoleLevel: number) {
     const authorization = req.headers[AUTHORIZATION]
 
     const basicAuth = SecurityUtil.parseBasicAuth(authorization)
@@ -16,6 +16,8 @@ export default function checkBasicAuth(req: FastifyRequest, pathRoleLevel: numbe
     if (configAuth.role > pathRoleLevel) {
         throw new UnauthorizedAccessError()
     }
+
+    return configAuth
 }
 
 function getConfigAuth(basicAuth?: auth.BasicAuthResult) {

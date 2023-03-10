@@ -1,4 +1,4 @@
-import { PUT } from "../../modules/app/http_method"
+import { DELETE } from "../../modules/app/http_method"
 import { setMethod, setPathMapping } from "./utils"
 
 export default function postMethod(path: string) {
@@ -8,6 +8,6 @@ export default function postMethod(path: string) {
         descriptor: PropertyDescriptor
     ) {
         setMethod(target, propertyKey, descriptor)
-        return setPathMapping(path, PUT, target, propertyKey)
+        return setPathMapping(path, DELETE, target, propertyKey)
     }
 }

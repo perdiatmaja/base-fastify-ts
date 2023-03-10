@@ -2,8 +2,7 @@ import { FastifyRequest } from "fastify"
 import InvalidDataError from "../../error/invalid_data.error"
 import ParameterDescription from "../../modules/app/parameter_description"
 import PathMapping from "../../modules/app/path_mapping"
-import { JWTData } from "../../utils/security.util"
-import checkBasicAuth from "./basich_auth.handler"
+import getAndcheckConfigAuth from "./basich_auth.handler"
 import getJwtData from "./jwt.handler"
 
 const PATH_MAPPINGS = "pathMappings"
@@ -13,7 +12,7 @@ const QUERY_PARAM = "QUERY_PARAM"
 const DEFAULT_ROLE_LEVEL = 5
 
 export function getPathMappings(target: any) {
-    let pathMappings = target[PATH_MAPPINGS] as Map<string, PathMapping> ?? new Map()
+    const pathMappings = target[PATH_MAPPINGS] as Map<string, PathMapping> ?? new Map()
 
     return pathMappings
 }
@@ -24,14 +23,14 @@ export function setPathMapping(path: string,
     propertyKey: string,
     roleLevel?: number
 ) {
-    let pathMappings = getPathMappings(target)
-    let pathMapping = pathMappings.get(propertyKey) ?? {};
+    const pathMappings = getPathMappings(target)
+    const pathMapping = pathMappings.get(propertyKey) ?? {};
 
     pathMapping.path = path
     pathMapping.type = type
     pathMapping.roleLevel = roleLevel ?? DEFAULT_ROLE_LEVEL
 
-    pathMappings.set(propertyKey, pathMapping);
+    pathMappings.set(propertyKey, pathMapping)
 
     target[PATH_MAPPINGS] = pathMappings
 
@@ -53,14 +52,13 @@ export function setMethod(target: any, propertyKey: string, descriptor: Property
         const authRequired: boolean = pathMapping.authRequired ?? false
         const jwtRequired: boolean = pathMapping.jwtRequired ?? false
         const parameterDescriptions: ParameterDescription[] = method.parameterDescriptions ?? []
-        let jwdData: JWTData | undefined = undefined
-
+        
         if (authRequired) {
-            checkBasicAuth(req, pathMapping.roleLevel!)
+            (req as any).configAuth = getAndcheckConfigAuth(req, pathMapping.roleLevel!)
         }
 
         if (jwtRequired) {
-            jwdData = getJwtData(req)
+            const jwdData = getJwtData(req)
         }
 
         for (const parameterDescription of parameterDescriptions) {
