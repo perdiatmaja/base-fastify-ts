@@ -1,7 +1,7 @@
 {
-  "name": "base-be",
+  "name": "springify",
   "version": "0.0.1",
-  "description": "Base BE",
+  "description": "A framework like JAVA Spring mean for every Java Programmer that need low resource tools for an Restful Service.",
   "main": "./src/index.ts",
   "scripts": {
     "prod": "ts-node ./src/main/index.ts",

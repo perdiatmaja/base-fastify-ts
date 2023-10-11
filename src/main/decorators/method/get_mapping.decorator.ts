@@ -1,5 +1,5 @@
 import { GET } from "../../modules/app/http_method"
-import { setMethod, setPathMapping } from "./utils"
+import { setMethod, setPathMapping } from "./method_decorator.utils"
 
 export default function postMethod(path: string) {
     return function (

@@ -1,5 +1,5 @@
 import PathMapping from "../../modules/app/path_mapping";
-import { getPathMapping, getPathMappings } from "./utils";
+import { getPathMapping, getPathMappings } from "./method_decorator.utils";
 
 const PATH_MAPPINGS = "pathMappings"
 

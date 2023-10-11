@@ -7,8 +7,12 @@ import getJwtData from "./jwt.handler"
 
 const PATH_MAPPINGS = "pathMappings"
 const REQUEST_BODY = "REQUEST_BODY"
+const REQUEST = "REQUEST"
 const PATH_PARAM = "PATH_PARAM"
 const QUERY_PARAM = "QUERY_PARAM"
+const MULTIPART_FILE = "MULTIPART_FILE"
+const MULTIPART_PARAM = "MULTIPART_PARAM"
+const USER_SESSION = "USER_SESSION"
 const DEFAULT_ROLE_LEVEL = 5
 
 export function getPathMappings(target: any) {
@@ -52,13 +56,13 @@ export function setMethod(target: any, propertyKey: string, descriptor: Property
         const authRequired: boolean = pathMapping.authRequired ?? false
         const jwtRequired: boolean = pathMapping.jwtRequired ?? false
         const parameterDescriptions: ParameterDescription[] = method.parameterDescriptions ?? []
-        
+
         if (authRequired) {
             (req as any).configAuth = getAndcheckConfigAuth(req, pathMapping.roleLevel!)
         }
 
         if (jwtRequired) {
-            const jwdData = getJwtData(req)
+            const jwdData = await getJwtData(req, pathMapping.roleLevel!);
         }
 
         for (const parameterDescription of parameterDescriptions) {
@@ -68,10 +72,21 @@ export function setMethod(target: any, propertyKey: string, descriptor: Property
                     param = req.body
                     break
                 case PATH_PARAM:
-                    param = (req.params as any)[parameterDescription.name ?? ""]
+                    param = (req.params as any)[parameterDescription.name!]
                     break
                 case QUERY_PARAM:
-                    param = (req.query as any)[parameterDescription.name ?? ""]
+                    param = (req.query as any)[parameterDescription.name!]
+                    break
+                case REQUEST:
+                    param = req
+                case MULTIPART_FILE:
+                    param = (req.body as any)[parameterDescription.name!][0]
+                    break
+                case MULTIPART_PARAM:
+                    param = (req.body as any)[parameterDescription.name!]
+                    break
+                case USER_SESSION:
+                    param = (req as any).userSession
                     break
             }
 
@@ -84,30 +99,4 @@ export function setMethod(target: any, propertyKey: string, descriptor: Property
 
         return method.apply(this, params)
     }
-}
-
-export default function getParamNames(func: Function) {
-    let str = func.toString()
-
-    str = str.replace(/\/\*[\s\S]*?\*\//g, '')
-        .replace(/\/\/(.)*/g, '')
-        .replace(/{[\s\S]*}/, '')
-        .replace(/=>/g, '')
-        .trim()
-
-    var start = str.indexOf("(") + 1
-    var end = str.length - 1
-
-    var result = str.substring(start, end).split(", ")
-
-    const params: string[] = []
-
-    result.forEach(element => {
-        element = element.replace(/=[\s\S]*/g, '').trim()
-
-        if (element.length > 0)
-            params.push(element)
-    })
-
-    return params
 }

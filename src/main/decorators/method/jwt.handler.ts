@@ -4,7 +4,7 @@ import SecurityUtil from "../../utils/security.util";
 
 const JWT_TOKEN = "token"
 
-export default function getJwtData(req: FastifyRequest) {
+export default async function getJwtData(req: FastifyRequest, pathRole: number) {
     const jwtToken: string | string[] | undefined = req.headers[JWT_TOKEN]
 
     if (!jwtToken) {
@@ -13,5 +13,9 @@ export default function getJwtData(req: FastifyRequest) {
 
     const jwtData = SecurityUtil.verifyJwt(jwtToken.toString())
 
-    return jwtData
+    switch (pathRole) {
+        case 5:
+        default:
+            return null
+    }
 }
