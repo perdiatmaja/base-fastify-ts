@@ -15,8 +15,8 @@ import { RequestBody } from "../../../decorators/parameters";
 class AdminAuthRouter extends BaseRouter {
     private readonly service: AdminAuthContract
 
-    constructor(application: Application, @inject(ContractToken.ADMIN_AUTH_CONTRACT) service: AdminAuthContract) {
-        super(application)
+    constructor(@inject(ContractToken.ADMIN_AUTH_CONTRACT) service: AdminAuthContract) {
+        super()
         this.service = service
     }
 

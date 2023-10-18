@@ -1,16 +1,17 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { inject } from "tsyringe";
+import { container, inject } from "tsyringe";
 import Application from "../../application";
 import { DELETE, GET, HTTP_METHOD, POST, PUT } from "./http_method";
 import PathMapping from './path_mapping';
+import AppLogger from "../../utils/logger.utils";
 
 const MAIN_PATH = "mainPath"
 
 abstract class BaseRouter {
     protected readonly application: Application
 
-    constructor(@inject(Application) application: Application) {
-        this.application = application
+    constructor() {
+        this.application = container.resolve(Application)
         this.initRoute()
     }
 
@@ -48,6 +49,8 @@ abstract class BaseRouter {
                     })
                     break;
             }
+
+            AppLogger.writeInfo(`Registered ${pathMappingType} ${fullPath}`)
         })
     }
 
