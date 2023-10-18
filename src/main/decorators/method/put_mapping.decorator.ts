@@ -1,7 +1,11 @@
 import { PUT } from "../../modules/app/http_method"
 import { setMethod, setPathMapping } from "./method_decorator.utils"
 
-export default function postMethod(path: string) {
+/**
+ * Method decorator to register PUT method API
+ */
+
+export default function putMethod(path: string) {
     return function (
         target: any,
         propertyKey: string,

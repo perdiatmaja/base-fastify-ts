@@ -1,6 +1,10 @@
 import { DELETE } from "../../modules/app/http_method"
 import { setMethod, setPathMapping } from "./method_decorator.utils"
 
+/**
+ * Method decorator to register POST method API
+ */
+
 export default function postMethod(path: string) {
     return function (
         target: any,

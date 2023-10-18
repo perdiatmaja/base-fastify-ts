@@ -15,6 +15,10 @@ const MULTIPART_PARAM = "MULTIPART_PARAM"
 const USER_SESSION = "USER_SESSION"
 const DEFAULT_ROLE_LEVEL = 5
 
+interface FunctionWithParameterDescription extends Function {
+    parameterDescriptions: ParameterDescription[]
+}
+
 export function getPathMappings(target: any) {
     const pathMappings = target[PATH_MAPPINGS] as Map<string, PathMapping> ?? new Map()
 
@@ -48,7 +52,7 @@ export function getPathMapping(target: any, propertyKey: any) {
 }
 
 export function setMethod(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    const method = descriptor.value
+    const method = descriptor.value as FunctionWithParameterDescription
 
     target[propertyKey] = async function (req: FastifyRequest) {
         const params: any[] = []
@@ -66,7 +70,7 @@ export function setMethod(target: any, propertyKey: string, descriptor: Property
         }
 
         for (const parameterDescription of parameterDescriptions) {
-            let param = undefined
+            let param: any = undefined
             switch (parameterDescription.type) {
                 case REQUEST_BODY:
                     param = req.body
