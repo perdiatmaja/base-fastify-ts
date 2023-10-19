@@ -1,6 +1,5 @@
 import { container, singleton } from 'tsyringe';
 import FileUtils from '../../utils/file.utils';
-import AdminAuthRouter from './auth/admin_auth.router';
 
 @singleton()
 class RoutesInitialazer {
@@ -9,9 +8,9 @@ class RoutesInitialazer {
         const filePaths: string[] = FileUtils.getFileList(directoryPath)
 
         for (const filePath of filePaths) {
-            if (!filePath.includes(`base`) && filePath.includes(`.router.`)) {
+            if (!filePath.includes(`base.router.ts`) && filePath.includes(`.router.ts`)) {
                 const routerClass = require(filePath)
-                container.resolve(AdminAuthRouter)
+                container.resolve(routerClass.default)
             }
         }
     }

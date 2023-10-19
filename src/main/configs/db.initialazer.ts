@@ -1,4 +1,4 @@
-import { Model, Sequelize } from "sequelize-typescript";
+import { Sequelize } from "sequelize-typescript";
 import { injectable } from "tsyringe";
 import AdminModel from "../models/admin.model";
 
