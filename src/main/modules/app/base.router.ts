@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { container, inject } from "tsyringe";
+import { container } from "tsyringe";
 import Application from "../../application";
 import { DELETE, GET, HTTP_METHOD, POST, PUT } from "./http_method";
 import PathMapping from './path_mapping';
