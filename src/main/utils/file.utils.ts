@@ -1,9 +1,10 @@
-import { Multipart } from '../../../node_modules/fastify-multipart/index.d';
 import fs from 'fs-extra'
 import { v4 as uuid } from 'uuid'
 import AppLogger from './logger.utils';
 import GeneralError from '../error/general.errror';
 import { parse } from 'csv-parse';
+import { Multipart } from '@fastify/multipart';
+import path from 'path';
 
 export type FileCategoryType = '/csv/' | '/icon/package/' | '/img/promo/'
 export const FiletCategory = {
@@ -93,6 +94,24 @@ class FileUtils {
                 rej(error)
             }
         })
+    }
+
+    public static getFileList(directoryPath: string): string[] {
+        let files: string[] = [];
+        const contents: string[] = fs.readdirSync(directoryPath);
+
+        contents.forEach((file) => {
+            const filePath: string = path.join(directoryPath, file);
+            const isDirectory: boolean = fs.statSync(filePath).isDirectory();
+
+            if (isDirectory) {
+                files = files.concat(this.getFileList(filePath));
+            } else {
+                files.push(filePath);
+            }
+        });
+
+        return files
     }
 }
 

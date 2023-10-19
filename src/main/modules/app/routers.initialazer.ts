@@ -1,19 +1,19 @@
-import { singleton } from 'tsyringe';
+import { container, singleton } from 'tsyringe';
+import FileUtils from '../../utils/file.utils';
 import AdminAuthRouter from './auth/admin_auth.router';
-import BaseRouter from './base.router';
 
 @singleton()
 class RoutesInitialazer {
-    private readonly routes: BaseRouter[] = []
-
-    constructor(
-        adminAuthRoute: AdminAuthRouter
-    ) {
-        this.routes.push(adminAuthRoute)
-    }
-
     initRoutes() {
-        console.log("Route initialazed")
+        const directoryPath: string = `${process.cwd()}/src/main/modules/app`
+        const filePaths: string[] = FileUtils.getFileList(directoryPath)
+
+        for (const filePath of filePaths) {
+            if (!filePath.includes(`base`) && filePath.includes(`.router.`)) {
+                const routerClass = require(filePath)
+                container.resolve(AdminAuthRouter)
+            }
+        }
     }
 }
 
