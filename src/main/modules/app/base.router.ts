@@ -3,7 +3,6 @@ import { container, inject } from "tsyringe";
 import Application from "../../application";
 import { DELETE, GET, HTTP_METHOD, POST, PUT } from "./http_method";
 import PathMapping from './path_mapping';
-import AppLogger from "../../utils/logger.utils";
 
 const MAIN_PATH = "mainPath"
 
@@ -50,7 +49,7 @@ abstract class BaseRouter {
                     break;
             }
 
-            AppLogger.writeInfo(`Registered ${pathMappingType} ${fullPath}`)
+            console.log(`Registered ${pathMappingType} ${fullPath}`)
         })
     }
 
