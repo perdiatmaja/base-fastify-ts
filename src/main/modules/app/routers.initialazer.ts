@@ -10,7 +10,8 @@ class RoutesInitialazer {
         for (const filePath of filePaths) {
             if (!filePath.includes(`base.router.ts`) && filePath.includes(`.router.ts`)) {
                 const routerClass = require(filePath)
-                container.resolve(routerClass.default)
+                const declaredRoutedClass = container.resolve(routerClass.default) as any
+                declaredRoutedClass["initRoute"]()
             }
         }
     }

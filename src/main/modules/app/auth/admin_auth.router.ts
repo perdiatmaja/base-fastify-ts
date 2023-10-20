@@ -5,8 +5,8 @@ import AdminAuthContract from "./contract/admin_auth.contract";
 import LoginAdminBody from "./schema/login_admin.body";
 import PathMapping from "../../../decorators/path_mapping.decorator";
 import AuthRequired from "../../../decorators/method/auth_required.decorator";
-import { POST } from "../../../decorators/method";
-import { RequestBody } from "../../../decorators/parameters";
+import { GET, POST } from "../../../decorators/method";
+import { QueryParam, RequestBody } from "../../../decorators/parameters";
 import LoginAdminDTO from "../../domain/admin/dto/login_admin.dto";
 
 @injectable()
@@ -19,12 +19,10 @@ class AdminAuthRouter extends BaseRouter {
         this.service = service
     }
 
-    @AuthRequired
-    @POST("/auth/login")
-    public async login(@RequestBody body: LoginAdminBody): Promise<LoginAdminDTO> {
-        const adminData = await this.service.loginAdmin({
-            email: body.email,
-            password: body.password
+    @GET("/info")
+    public async login(@QueryParam("email") email: string): Promise<LoginAdminDTO> {
+        const adminData = await this.service.getInfo({
+            email: email
         })
         
         return adminData

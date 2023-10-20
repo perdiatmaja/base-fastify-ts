@@ -7,12 +7,7 @@ import PathMapping from './path_mapping';
 const MAIN_PATH = "mainPath"
 
 abstract class BaseRouter {
-    protected readonly application: Application
-
-    constructor() {
-        this.application = container.resolve(Application)
-        this.initRoute()
-    }
+    protected readonly application: Application = container.resolve(Application)
 
     protected get fastify(): FastifyInstance {
         return this.application.fastify

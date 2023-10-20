@@ -1,26 +1,13 @@
-import { delay } from 'tsyringe';
-import { container } from 'tsyringe';
 import InvalidTokenError from '../../error/invalid_token.error';
 import AppLogger from '../../utils/logger.utils';
-import SecurityUtil from '../../utils/security.util';
-import GetAdminByEmailUseCase from '../domain/admin/interactor/get_admin_by_email.interactor';
-import { UserSession } from './get_session';
+import SecurityUtil, { JWTData } from '../../utils/security.util';
 
-const getEventLogUseCase = container.resolve(delay(() => GetAdminByEmailUseCase))
-
-export const getAdminData = async (token?: string): Promise<UserSession> => {
+export const getAdminData = async (token?: string): Promise<JWTData> => {
     if (token === undefined) throw new InvalidTokenError()
 
-    const tokenData = SecurityUtil.verifyErpJwt(token)
-    const loginEvent = await getEventLogUseCase.blockingExecute({email: ""})
+    const tokenData = SecurityUtil.verifyJwt(token)
 
-    if (loginEvent.name !== "") {
-        throw new InvalidTokenError()
-    }
+    AppLogger.writeInfo(`token: ${tokenData}`)
 
-    AppLogger.writeInfo(`loginId: ${tokenData.data.loginId}`)
-
-    return {
-        id: loginEvent.id
-    }
+    return tokenData
 }

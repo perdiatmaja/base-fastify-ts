@@ -1,12 +1,11 @@
 import LoginAdminDTO from "../../../domain/admin/dto/login_admin.dto"
 
-export interface LoginAdminRequest {
+export interface GetInfoRequest {
     email: string
-    password: string
 }
 
 interface AdminAuthContract {
-    loginAdmin(request: LoginAdminRequest): Promise<LoginAdminDTO>
+    getInfo(request: GetInfoRequest): Promise<LoginAdminDTO>
 }
 
 export default AdminAuthContract

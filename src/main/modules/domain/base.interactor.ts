@@ -17,7 +17,7 @@ abstract class BaseInteractor<T, P> {
 
     protected abstract buildPromise(param: P): Promise<T>
 
-    blockingExecute(param: P): Promise<T> {
+    execute(param: P): Promise<T> {
         return new Promise(async (res, rej) => {
             try {
                 res(await this.buildPromise(param))

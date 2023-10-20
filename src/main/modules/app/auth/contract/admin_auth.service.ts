@@ -1,10 +1,9 @@
-import { AdminAttributes } from '../../../../models/admin.model';
 import { injectable } from 'tsyringe';
 import LoginAdminDTO from "../../../domain/admin/dto/login_admin.dto";
 import loginAdminDTOMapper from '../../../domain/admin/mapper/admin_login_dto.mapper';
-import AdminAuthContract, { LoginAdminRequest } from "./admin_auth.contract";
-import IncorrectPasswordError from '../../../../error/incorrect_password.error';
+import AdminAuthContract, { GetInfoRequest } from "./admin_auth.contract";
 import GetAdminByEmailUseCase from '../../../domain/admin/interactor/get_admin_by_email.interactor';
+import { Transactional } from '../../../../decorators/method';
 
 @injectable()
 class AdminAuthService implements AdminAuthContract {
@@ -16,14 +15,12 @@ class AdminAuthService implements AdminAuthContract {
         this.getAdminByEmailUseCase = getAdminByEmailUseCase
     }
 
-    async loginAdmin(request: LoginAdminRequest): Promise<LoginAdminDTO> {
-        const admin = await this.getAdminByEmailUseCase.blockingExecute({
+    @Transactional()
+    async getInfo(request: GetInfoRequest): Promise<LoginAdminDTO> {
+        const admin = await this.getAdminByEmailUseCase.execute({
             email: request.email
-        });
-        if (admin.password !== request.password) {
-            throw new IncorrectPasswordError();
-        }
-        return loginAdminDTOMapper(admin, "");
+        })
+        return loginAdminDTOMapper(admin, "")
     }
 }
 

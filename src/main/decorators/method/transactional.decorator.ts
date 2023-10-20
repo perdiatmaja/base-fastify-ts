@@ -19,7 +19,7 @@ export default function transactionalMethod() {
             const sequlize: Sequelize = container.resolve(Sequelize)
             const transaction = await sequlize.transaction()
             try {
-                originalMethod.apply(this, args)
+                await originalMethod.apply(this, args)
                 await transaction.commit()
             } catch (error: any) {
                 AppLogger.writeError(error)
