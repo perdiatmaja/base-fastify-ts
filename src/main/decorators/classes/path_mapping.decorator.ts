@@ -2,7 +2,7 @@
  * Class decorator to register class as main a router
  */
 
-function PathMapping(mainPath: string) {
+function PathMappingClass(mainPath: string) {
     return function (target: any) {
         const decoratedTarget = target
         decoratedTarget.prototype["mainPath"] = mainPath
@@ -10,4 +10,4 @@ function PathMapping(mainPath: string) {
     }
 }
 
-export default PathMapping
+export default PathMappingClass

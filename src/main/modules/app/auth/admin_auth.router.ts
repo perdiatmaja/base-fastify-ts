@@ -2,12 +2,10 @@ import { inject, injectable } from "tsyringe";
 import ContractToken from "../../../constants/contract.token";
 import BaseRouter from "../base.router";
 import AdminAuthContract from "./contract/admin_auth.contract";
-import LoginAdminBody from "./schema/login_admin.body";
-import PathMapping from "../../../decorators/path_mapping.decorator";
-import AuthRequired from "../../../decorators/method/auth_required.decorator";
-import { GET, POST } from "../../../decorators/method";
-import { QueryParam, RequestBody } from "../../../decorators/parameters";
+import { GET } from "../../../decorators/method";
+import { QueryParam } from "../../../decorators/parameters";
 import LoginAdminDTO from "../../domain/admin/dto/login_admin.dto";
+import { PathMapping } from "../../../decorators/classes";
 
 @injectable()
 @PathMapping("/v1/admin")
