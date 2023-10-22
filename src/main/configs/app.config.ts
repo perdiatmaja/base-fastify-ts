@@ -1,5 +1,5 @@
 import { NotFoundRouteParams } from './../error/route_not_found.error';
-import { FastifyInstance } from 'fastify';
+import { DoneFuncWithErrOrRes, FastifyInstance, onSendHookHandler } from 'fastify';
 import { delay, inject, singleton } from "tsyringe";
 import Application from "../application";
 import FastifyHook from '../constants/hook.constant';
@@ -15,7 +15,12 @@ import RouteNotFoundError from '../error/route_not_found.error';
 import fastifyMultipart from '@fastify/multipart';
 
 enum CONFIG_KEY {
-    SECURE_SESSION_ENABLED
+    SECURE_SESSION_ENABLED,
+    ON_SEND_HANDLER
+}
+
+interface onSendHandler<T> {
+    handle(payload: T, done: DoneFuncWithErrOrRes): void
 }
 
 @singleton()
@@ -100,6 +105,14 @@ class AppConfig {
 
     public static enableSecureSession(enable: boolean) {
         AppConfig._configDataMap.set(CONFIG_KEY.SECURE_SESSION_ENABLED.toString(), enable)
+    }
+
+    public static registerOnSendHandler<T>(handler: onSendHandler<T>) {
+        AppConfig._configDataMap.set(CONFIG_KEY.ON_SEND_HANDLER.toString(), handler)
+    }
+
+    public static getOnSendHandler<T>(): onSendHandler<T> {
+        return AppConfig._configDataMap.get(CONFIG_KEY.ON_SEND_HANDLER.toString())
     }
 }
 
