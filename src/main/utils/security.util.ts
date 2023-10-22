@@ -3,6 +3,7 @@ import crypto from 'crypto'
 import md5 from 'md5'
 import jwt from 'jsonwebtoken'
 import InvalidTokenError from '../error/invalid_token.error';
+import UnauthorizedAccessError from '../error/unauthorized_access.error';
 
 const SHA256 = 'sha256'
 const DIGEST_HEX = 'hex'
@@ -23,8 +24,18 @@ class SecurityUtil {
         return crypto.createHash(SHA256).update(text).digest(DIGEST_HEX)
     }
 
-    static parseBasicAuth(authStr?: string): auth.BasicAuthResult | undefined {
-        return authStr ? auth.parse(authStr) : undefined
+    static parseBasicAuth(authStr?: string): auth.BasicAuthResult {
+        if (authStr === undefined) {
+            throw new UnauthorizedAccessError()
+        }
+
+        const basicAuth = auth.parse(authStr)
+
+        if (basicAuth) {
+            return basicAuth
+        }
+
+        throw new UnauthorizedAccessError()
     }
 
     static signJwt(data: any): string {

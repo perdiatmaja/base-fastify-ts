@@ -1,5 +1,5 @@
 import { NotFoundRouteParams } from './../error/route_not_found.error';
-import { DoneFuncWithErrOrRes, FastifyInstance, FastifyReply } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import { delay, inject, singleton } from "tsyringe";
 import Application from "../application";
 import FastifyHook from '../constants/hook.constant';
@@ -13,14 +13,21 @@ import { join } from 'path';
 import EnvConfig from '../constants/env_config.constant';
 import RouteNotFoundError from '../error/route_not_found.error';
 import fastifyMultipart from '@fastify/multipart';
+import BaseError from '../error/base.error';
+import auth from 'basic-auth';
 
 enum CONFIG_KEY {
     SECURE_SESSION_ENABLED,
-    ON_SEND_HANDLER
+    ON_SEND_HANDLER,
+    BASIC_AUTH_HANDLER
 }
 
-interface onSendHandler<T> {
-    handle(payload: T): void
+interface onSendHandler {
+    handle(payload: BaseError): void
+}
+
+interface BasicAuthHandler<T> {
+    handle(basicAuth: auth.BasicAuthResult | undefined, pathRoleLevel: number): T
 }
 
 @singleton()
@@ -107,12 +114,20 @@ class AppConfig {
         AppConfig._configDataMap.set(CONFIG_KEY.SECURE_SESSION_ENABLED.toString(), enable)
     }
 
-    public static registerOnSendHandler<T>(handler: onSendHandler<T>) {
+    public static registerOnSendHandler(handler: onSendHandler) {
         AppConfig._configDataMap.set(CONFIG_KEY.ON_SEND_HANDLER.toString(), handler)
     }
 
-    public static getOnSendHandler<T>(): onSendHandler<T> {
+    public static getOnSendHandler(): onSendHandler {
         return AppConfig._configDataMap.get(CONFIG_KEY.ON_SEND_HANDLER.toString())
+    }
+
+    public static registerBasicAuthHandler<T>(handler: BasicAuthHandler<T>) {
+        AppConfig._configDataMap.set(CONFIG_KEY.BASIC_AUTH_HANDLER.toString(), handler)
+    }
+
+    public static getBasicAuthHandler<T>(): BasicAuthHandler<T> {
+        return AppConfig._configDataMap.get(CONFIG_KEY.BASIC_AUTH_HANDLER.toString())
     }
 }
 

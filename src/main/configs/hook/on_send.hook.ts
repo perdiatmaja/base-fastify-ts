@@ -1,5 +1,5 @@
 import { CustFastifyReq } from './on_request.hook';
-import { FastifyRequest, FastifyReply, DoneFuncWithErrOrRes, onSendHookHandler } from 'fastify';
+import { FastifyRequest, FastifyReply, DoneFuncWithErrOrRes } from 'fastify';
 import md5 from 'md5';
 import AppLogger from '../../utils/logger.utils';
 import AppConfig from '../app.config';
@@ -17,8 +17,7 @@ const onSendHook = (request: FastifyRequest, reply: FastifyReply, payload: any, 
     const onSendHandler = AppConfig.getOnSendHandler()
 
     if (onSendHandler) {
-        onSendHandler.handle(payloadJson)
-        
+        onSendHandler.handle(payloadJson) 
     }
     const statusCode: number = payloadJson.statusCode
     payloadJson.statusCode = undefined
