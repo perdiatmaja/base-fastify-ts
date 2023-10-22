@@ -6,7 +6,7 @@ class DataNotFoundError extends BaseError {
         super({
             code: ErrorConstant.DATA.NOT_FOUND.code,
             message: `${entity.length > 0 ? entity + " " : entity}${ErrorConstant.DATA.NOT_FOUND.message}`
-        })
+        }, 404)
     }
 }
 

@@ -31,7 +31,10 @@ const onErrorHook = (throwedError: Error, _: FastifyRequest, reply: FastifyReply
         error = new GeneralError()
     }
 
+    const baseError = (error as BaseError)
+
     reply.send({
+        statusCode: baseError.statusCode,
         code: (error as BaseError).code,
         message: (error as BaseError).message
     })

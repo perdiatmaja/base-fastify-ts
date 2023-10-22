@@ -3,7 +3,7 @@ import BaseError from "./base.error";
 
 class UnauthorizedAccessError extends BaseError {
     constructor() {
-        super(ErrorConstant.ACCESS.UNAUTHORIZED_ACCESS)
+        super(ErrorConstant.ACCESS.UNAUTHORIZED_ACCESS, 403)
     }
 }
 

@@ -1,5 +1,5 @@
 import { NotFoundRouteParams } from './../error/route_not_found.error';
-import { DoneFuncWithErrOrRes, FastifyInstance, onSendHookHandler } from 'fastify';
+import { DoneFuncWithErrOrRes, FastifyInstance, FastifyReply } from 'fastify';
 import { delay, inject, singleton } from "tsyringe";
 import Application from "../application";
 import FastifyHook from '../constants/hook.constant';
@@ -20,7 +20,7 @@ enum CONFIG_KEY {
 }
 
 interface onSendHandler<T> {
-    handle(payload: T, done: DoneFuncWithErrOrRes): void
+    handle(payload: T): void
 }
 
 @singleton()

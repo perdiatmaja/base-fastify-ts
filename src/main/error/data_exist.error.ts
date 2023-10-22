@@ -3,7 +3,7 @@ import BaseError from "./base.error";
 
 class DataExistError extends BaseError {
     constructor() {
-        super(ErrorConstant.DATA.ALREADY_EXIST)
+        super(ErrorConstant.DATA.ALREADY_EXIST, 404)
     }
 }
 

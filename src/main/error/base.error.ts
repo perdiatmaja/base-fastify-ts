@@ -5,10 +5,12 @@ export interface ErrorType {
 
 abstract class BaseError extends Error {
     readonly code: number
+    readonly statusCode: number
 
-    constructor(errorType: ErrorType) {
+    constructor(errorType: ErrorType, statusCode: number) {
         super(errorType.message)
         this.code = errorType.code
+        this.statusCode = statusCode
     }
 }
 

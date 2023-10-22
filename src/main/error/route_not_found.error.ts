@@ -7,7 +7,7 @@ export interface NotFoundRouteParams {
 
 class RouteNotFoundError extends BaseError {
     constructor(public readonly path: string) {
-        super(ErrorConstant.ACCESS.ROUTE_NOT_FOUND)
+        super(ErrorConstant.ACCESS.ROUTE_NOT_FOUND, 404)
     }
 }
 

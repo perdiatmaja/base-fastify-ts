@@ -3,7 +3,7 @@ import BaseError from "./base.error";
 
 class GeneralError extends BaseError {
     constructor() {
-        super(ErrorConstant.GENERAL)
+        super(ErrorConstant.GENERAL, 500)
     }
 }
 
