@@ -14,9 +14,14 @@ import EnvConfig from '../constants/env_config.constant';
 import RouteNotFoundError from '../error/route_not_found.error';
 import fastifyMultipart from '@fastify/multipart';
 
+enum CONFIG_KEY {
+    SECURE_SESSION_ENABLED
+}
+
 @singleton()
 class AppConfig {
     private readonly fastify: FastifyInstance
+    private static _configDataMap: Map<string, any> = new Map() 
 
     constructor(@inject(delay(() => Application)) application: Application, private readonly envConfig: EnvConfig) {
         this.fastify = application.fastify
@@ -61,10 +66,12 @@ class AppConfig {
     }
 
     private initSecureSession() {
-        this.fastify.register(SecureSessionPlugin, {
-            cookieName: this.envConfig.COOKIE_NAME,
-            key: this.getSecretKey()
-        })
+        if (AppConfig._configDataMap.get(CONFIG_KEY.SECURE_SESSION_ENABLED.toString()) ?? false) {
+            this.fastify.register(SecureSessionPlugin, {
+                cookieName: this.envConfig.COOKIE_NAME,
+                key: this.getSecretKey()
+            })
+        }
     }
 
     private initNotFound() {
@@ -89,6 +96,10 @@ class AppConfig {
 
     private getSecretKey(): Buffer {
         return fs.readFileSync(join(this.envConfig.PROJECT_ROOT, `/secret-key`))
+    }
+
+    public static enableSecureSession(enable: boolean) {
+        AppConfig._configDataMap.set(CONFIG_KEY.SECURE_SESSION_ENABLED.toString(), enable)
     }
 }
 
