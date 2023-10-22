@@ -1,0 +1,15 @@
+.vscode
+design
+log
+node_modules
+.env.*
+.git
+.gitignore
+.npmignore
+build.sh
+deploy.sh
+docker-compose.yml
+Dockerfile
+install.sh
+tsconfig.builder.json
+tsconfig.json
