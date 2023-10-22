@@ -8,5 +8,5 @@ export * from "./src/main/decorators/method"
 export * from "./src/main/decorators/parameters"
 export * from "./src/main/decorators/classes"
 
-export { baseRouter as Router } from "./"
-export { application as SpringifyApp } from "./"
+export { baseRouter as Router }
+export { application as SpringifyApp }
