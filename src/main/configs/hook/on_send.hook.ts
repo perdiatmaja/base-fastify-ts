@@ -12,7 +12,7 @@ const onSendHook = (request: FastifyRequest, reply: FastifyReply, payload: any, 
     payloadJson.requestId = requestId
 
     AppLogger.writeInfo(`requestId: ${requestId}`)
-    AppLogger.writeInfo(`requestId: ${requestId}, response: ${payloadJson}`)
+    AppLogger.writeInfo(`requestId: ${requestId}, response: ${payload}`)
 
     const onSendHandler = AppConfig.getOnSendHandler()
 

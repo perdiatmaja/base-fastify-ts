@@ -88,6 +88,7 @@ abstract class BaseRouter {
 
     private sendSuccess(data?: any) {
         return {
+            statusCode: 200,
             code: 1000,
             message: "Success.",
             data: data
