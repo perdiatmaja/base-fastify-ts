@@ -3,7 +3,7 @@ import { getPathMappings } from "./method_decorator.utils";
 
 const PATH_MAPPINGS = "pathMappings"
 
-function AuthRequired(target: any,
+function AuthRequiredMethod(target: any,
     propertyKey: string,
     _: PropertyDescriptor) {
     let pathMappings = getPathMappings(target)
@@ -18,4 +18,4 @@ function AuthRequired(target: any,
     return target
 }
 
-export default AuthRequired
+export default AuthRequiredMethod

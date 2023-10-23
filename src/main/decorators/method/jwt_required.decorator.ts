@@ -3,7 +3,7 @@ import { getPathMapping, getPathMappings } from "./method_decorator.utils";
 
 const PATH_MAPPINGS = "pathMappings"
 
-function JwtRequired(
+function JwtRequiredMethod(
     target: any,
     propertyKey: string,
     _: PropertyDescriptor
@@ -20,4 +20,4 @@ function JwtRequired(
     return target
 }
 
-export default JwtRequired
+export default JwtRequiredMethod
