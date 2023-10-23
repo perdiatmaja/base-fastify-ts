@@ -4,7 +4,7 @@ import FileUtils from '../../utils/file.utils';
 @singleton()
 class RoutesInitialazer {
     initRoutes() {
-        const directoryPath: string = `${process.cwd()}/src/main/modules/app`
+        const directoryPath: string = `${process.cwd()}${process.env.ROUTER_PATH}`
         const filePaths: string[] = FileUtils.getFileList(directoryPath)
 
         for (const filePath of filePaths) {
