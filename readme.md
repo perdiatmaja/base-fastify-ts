@@ -2,7 +2,7 @@
 
 ## **Introduction**
 
-This is a base app come from Node JS with framework Fastify, typescript, clean architecture
+This is a node js framework that based on Fastify. Simplify the use of fastify using decorator, it similar with JAVA Spring boot.
 
 ## **Installation:**
 
@@ -30,3 +30,4 @@ DB_HOST=""
 DB_PORT=""
 DB_LOG=true
 ASSETS_PATH=""
+ROUTER_PATH=""
