@@ -1,8 +1,10 @@
 {
-  "name": "springify.ts",
+  "name": "springify-ts",
   "version": "0.0.1",
   "description": "A framework like JAVA Spring mean for every Java Programmer that need low resource tools for an Restful Service.",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "commonjs",
   "scripts": {
     "prod": "ts-node ./src/main/index.ts",
     "local": "ts-node ./src/main/index.ts local",

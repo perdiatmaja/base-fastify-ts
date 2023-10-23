@@ -1,14 +1,15 @@
 import "reflect-metadata"
+import dotenv from 'dotenv'
 import Fastify, { FastifyInstance } from 'fastify'
 import { container, singleton } from 'tsyringe'
 import AppConfig from './configs/app.config'
 import EnvConfig from './constants/env_config.constant'
-import registerContractDependency from "./di/register_contract.dependency";
-import registerRepositoryDependency from "./di/register_repository.dependency";
-import DBInitialazer from "./configs/db.initialazer";
-import RoutesInitialazer from "./modules/app/routers.initialazer";
-import registerAppDependecny from "./di/register_app.dependency";
-import registerDBDependecny from "./di/register_db.dependency";
+import registerContractDependency from "./di/register_contract.dependency"
+import registerRepositoryDependency from "./di/register_repository.dependency"
+import DBInitialazer from "./configs/db.initialazer"
+import RoutesInitialazer from "./modules/app/routers.initialazer"
+import registerAppDependecny from "./di/register_app.dependency"
+import registerDBDependecny from "./di/register_db.dependency"
 
 @singleton()
 class Application {
@@ -38,6 +39,9 @@ class Application {
     }
 
     public static start() {
+        const env = `.env${process.argv.length > 2 ? ".".concat(process.argv[2]) : ""}`
+        dotenv.config({ path: `${process.env.PWD}/${env}` })
+
         registerDBDependecny()
         registerRepositoryDependency()
         registerContractDependency()
