@@ -7,5 +7,6 @@ json
 secret-key
 /log
 *.js
+!/dist/index.js
 /build
 /src/js
