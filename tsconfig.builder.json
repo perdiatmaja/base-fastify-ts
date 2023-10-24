@@ -9,7 +9,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "outDir": "./src/js",
+    "outDir": "./build",
     "baseUrl": "./src/main"
   }
 }

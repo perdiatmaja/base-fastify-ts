@@ -1,5 +1,5 @@
 import "reflect-metadata"
-import dotenv from 'dotenv'
+
 import Fastify, { FastifyInstance } from 'fastify'
 import { container, singleton } from 'tsyringe'
 import AppConfig from './configs/app.config'
@@ -10,6 +10,13 @@ import DBInitialazer from "./configs/db.initialazer"
 import RoutesInitialazer from "./modules/app/routers.initialazer"
 import registerAppDependecny from "./di/register_app.dependency"
 import registerDBDependecny from "./di/register_db.dependency"
+
+interface onStart {
+    /*
+    *Callback before the app started
+    */
+    (): void
+}
 
 @singleton()
 class Application {
@@ -38,13 +45,16 @@ class Application {
         return this._fastify
     }
 
-    public static start() {
-        const env = `.env${process.argv.length > 2 ? ".".concat(process.argv[2]) : ""}`
-        dotenv.config({ path: `${process.env.PWD}/${env}` })
-
+    public static start(onStart?: onStart) {
         registerDBDependecny()
-        registerRepositoryDependency()
-        registerContractDependency()
+        
+        if (onStart) {
+            onStart()
+        } else {
+            registerRepositoryDependency()
+            registerContractDependency()
+        }
+
         registerAppDependecny()
 
         const routesInitialazer = container.resolve(RoutesInitialazer)
