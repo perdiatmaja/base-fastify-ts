@@ -1,6 +1,7 @@
 const SpringifyApp = require("./js/src/main/application")
 const AppConfig = require("./js/src/main/configs/app.config")
 const Router = require("./js/src/main/modules/app/base.router")
+const Response = require("./js/src/main/modules/app/base_response")
 
 const ClassDecorator = require("./js/src/main/decorators/classes/index")
 const MethodDecorator = require("./js/src/main/decorators/methods/index")
@@ -10,8 +11,9 @@ module.exports = SpringifyApp.default
 module.exports.default = SpringifyApp.default
 
 module.exports.SpringifyApp = SpringifyApp.default
-module.exports.Router = Router.default
+module.exports.SpringifyRouter = Router.default
 module.exports.SpringifyConfig = AppConfig.default
+module.exports.SpringifyResponse = Response
 
 module.exports.PathMapping = ClassDecorator.PathMapping
 
