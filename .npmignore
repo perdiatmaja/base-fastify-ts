@@ -13,6 +13,4 @@ Dockerfile
 install.sh
 tsconfig.builder.json
 tsconfig.json
-/src/main/modules/app/auth
-/src/main/configs/json
-/src/main/index.ts
+/src/main
