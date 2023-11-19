@@ -10,3 +10,5 @@ secret-key
 !/dist/index.js
 /build
 /src/js
+version_update.py
+package.json
