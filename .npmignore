@@ -8,12 +8,10 @@ node_modules
 .npmignore
 build.sh
 deploy.sh
+publish.sh
 docker-compose.yml
 Dockerfile
 install.sh
 tsconfig.builder.json
 tsconfig.json
-/src/main
-!/src/main/application.ts
-!/src/main/modules/app/base.router.ts
-!/src/main/modules/configs/app.config.ts
+src/**/*

@@ -1,7 +1,11 @@
+const Application = require("./js/src/main/application")
+const BaseRouter = require("./js/src/main/modules/app/base.router")
+const AppConfig = require("./js/src/main/configs/app.config")
+
 export * from "./ts/decorators/methods"
 export * from "./ts/decorators/parameters"
 export * from "./ts/decorators/classes"
 
-export { default as SpringifyApp } from "../src/main/application"
-export { default as Router } from "../src/main/modules/app/base.router"
-export { default as SpringifyConfig } from "../src/main/configs/app.config"
+export { Application as SpringifyApp }
+export { BaseRouter as Router }
+export { AppConfig as SpringifyConfig }

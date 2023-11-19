@@ -1,5 +1,3 @@
-import "reflect-metadata"
-
 import Fastify, { FastifyInstance } from 'fastify'
 import { container, singleton } from 'tsyringe'
 import AppConfig from './configs/app.config'
