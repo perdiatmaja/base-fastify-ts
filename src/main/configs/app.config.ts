@@ -13,8 +13,8 @@ import { join } from 'path';
 import EnvConfig from '../constants/env_config.constant';
 import RouteNotFoundError from '../error/route_not_found.error';
 import fastifyMultipart from '@fastify/multipart';
-import BaseError from '../error/base.error';
 import auth from 'basic-auth';
+import BaseResponse from '../modules/app/base_response';
 
 enum CONFIG_KEY {
     SECURE_SESSION_ENABLED,
@@ -23,7 +23,7 @@ enum CONFIG_KEY {
 }
 
 interface onSendHandler {
-    handle(payload: BaseError): void
+    handle<T>(payload: BaseResponse<T>): void
 }
 
 interface BasicAuthHandler<T> {

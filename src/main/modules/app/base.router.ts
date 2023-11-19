@@ -3,6 +3,9 @@ import { container } from "tsyringe";
 import Application from "../../application";
 import { DELETE, GET, HTTP_METHOD, POST, PUT } from "./http_method";
 import PathMapping from './path_mapping';
+import BaseResponse from "./base_response";
+import md5 from "md5";
+import { CustFastifyReq } from "../../configs/hook/on_request.hook";
 
 const MAIN_PATH = "mainPath"
 
@@ -80,18 +83,22 @@ abstract class BaseRouter {
     private async handleRequest(request: FastifyRequest, reply: FastifyReply, onRoute: (request: FastifyRequest<any>) => Promise<any>) {
         try {
             const response = await onRoute(request)
-            reply.send(this.sendSuccess(response))
+            const requestTime = (request as CustFastifyReq).requestTime
+            const requestId = md5(requestTime.toISOString())
+
+            reply.send(this.sendSuccess(requestId, response))
         } catch (error) {
             reply.send(error)
         }
     }
 
-    private sendSuccess(data?: any) {
+    private sendSuccess<T>(requestId: string, data?: T): BaseResponse<T> {
         return {
             statusCode: 200,
             code: 1000,
             message: "Success.",
-            data: data
+            data: data,
+            requestId: requestId
         }
     }
 }
