@@ -1,6 +1,6 @@
 {
   "name": "springify.ts",
-  "version": "0.0.20-SNAPSHOT",
+  "version": "0.0.1",
   "description": "A framework like JAVA Spring mean for every Java Programmer that need low resource tools for an Restful Service.",
   "type": "commonjs",
   "main": "./dist/index.js",
