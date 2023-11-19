@@ -3,7 +3,7 @@ import LoginAdminDTO from "../../../domain/admin/dto/login_admin.dto";
 import loginAdminDTOMapper from '../../../domain/admin/mapper/admin_login_dto.mapper';
 import AdminAuthContract, { GetInfoRequest } from "./admin_auth.contract";
 import GetAdminByEmailUseCase from '../../../domain/admin/interactor/get_admin_by_email.interactor';
-import { Transactional } from '../../../../decorators/method';
+import { Transactional } from '../../../../decorators/methods';
 
 @injectable()
 class AdminAuthService implements AdminAuthContract {

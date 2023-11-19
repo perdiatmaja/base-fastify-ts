@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 import ContractToken from "../../../constants/contract.token";
 import BaseRouter from "../base.router";
 import AdminAuthContract from "./contract/admin_auth.contract";
-import { GET } from "../../../decorators/method";
+import { GET } from "../../../decorators/methods";
 import { QueryParam } from "../../../decorators/parameters";
 import LoginAdminDTO from "../../domain/admin/dto/login_admin.dto";
 import { PathMapping } from "../../../decorators/classes";

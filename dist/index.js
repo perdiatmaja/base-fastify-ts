@@ -2,7 +2,7 @@ const SpringifyApp = require("../src/main/application")
 const Router = require("../src/main/modules/app/base.router")
 
 const ClassDecorator = require("../src/main/decorators/classes/index")
-const MethodDecorator = require("../src/main/decorators/method/index")
+const MethodDecorator = require("../src/main/decorators/methods/index")
 const ParamDecorator = require("../src/main/decorators/parameters/index")
 
 module.exports = SpringifyApp.default
