@@ -1,3 +1,4 @@
 echo "build ts to js"
-rm -rf "./build"
-tsc --build "./tsconfig.builder.json"
+rm -rf "./dist/js"
+tsc --build
+rm -rf "./dist/js/dist"

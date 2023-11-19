@@ -1,6 +1,8 @@
-export * from "../src/main/decorators/method"
-export * from "../src/main/decorators/parameters"
-export * from "../src/main/decorators/classes"
+export * from "./ts/decorators/classes"
+export * from "./ts/decorators/methods"
+export * from "./ts/decorators/parameters"
 
-export { default as SpringifyApp } from "../src/main/application"
-export { default as Router } from "../src/main/modules/app/base.router"
+export { default as SpringifyApp } from "./ts/classes/springify.app"
+export { default as SpringifyRouter } from "./ts/classes/springify.router"
+export { default as SpringifyConfig } from "./ts/classes/springify.config"
+export { default as SpringifyResponse } from "./ts/classes/springify.response"
