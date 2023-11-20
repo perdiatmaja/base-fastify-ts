@@ -28,11 +28,15 @@ version = branch.replace("release/", "") if (isRelease) else str(packageData["ve
 
 if isRelease and version != versionHistory[RELEASE]:
     packageData["version"] = f"{version}"
-    
-elif branch == "develop" and version != versionHistory[SNAPSHOT]:
+
+elif branch == "develop":
     versionArr = version.split(".")
     buildNo = int(versionArr[len(versionArr) - 1]) + 1
-    version = f"{versionArr[0]}.{versionArr[1]}.{buildNo}-{SNAPSHOT}"
+    version = (
+        f"{versionArr[0]}.{versionArr[1]}.{buildNo}-{SNAPSHOT}"
+        if version == versionHistory[SNAPSHOT]
+        else versionHistory[SNAPSHOT]
+    )
     packageData["version"] = f"{version}"
 
 with open("package.json", "w") as outfile:
