@@ -16,3 +16,4 @@ tsconfig.builder.json
 tsconfig.json
 src/**/*
 version_update.py
+version_history

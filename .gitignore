@@ -11,4 +11,3 @@ secret-key
 /build
 /src/js
 version_update.py
-package.json
