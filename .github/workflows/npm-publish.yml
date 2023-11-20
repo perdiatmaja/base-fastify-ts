@@ -6,7 +6,7 @@ name: Develop
 on:
   push:
   pull_request:
-    branches: [release/**, develop]
+    branches: [main, develop]
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
       - run: npm ci
 
   publish-npm:
-    if: contains('refs/heads/develop refs/heads/release/', github.ref) && github.event.pull_request.merged == true
+    if: ${{github.event.pull_request.merged == true}} && contains('refs/heads/develop refs/heads/release/', github.ref)
     needs: build
     runs-on: ubuntu-latest
     steps:
