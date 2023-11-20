@@ -3,7 +3,7 @@ import { injectable } from "tsyringe";
 import AdminModel from "../models/admin.model";
 
 @injectable()
-class DBInitialazer {
+class DBInitializer {
     private readonly sequelize: Sequelize
 
     constructor(sequelize: Sequelize) {
@@ -21,4 +21,4 @@ class DBInitialazer {
     }
 }
 
-export default DBInitialazer
+export default DBInitializer

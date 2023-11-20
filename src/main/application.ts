@@ -4,7 +4,7 @@ import AppConfig from './configs/app.config'
 import EnvConfig from './constants/env_config.constant'
 import registerContractDependency from "./di/register_contract.dependency"
 import registerRepositoryDependency from "./di/register_repository.dependency"
-import DBInitialazer from "./configs/db.initialazer"
+import DBInitializer from "./configs/db.initialazer"
 import RoutesInitialazer from "./modules/app/routers.initialazer"
 import registerAppDependecny from "./di/register_app.dependency"
 import registerDBDependecny from "./di/register_db.dependency"
@@ -56,7 +56,7 @@ class Application {
         registerAppDependecny()
 
         const routesInitialazer = container.resolve(RoutesInitialazer)
-        const dbInitialazer = container.resolve(DBInitialazer)
+        const dbInitialazer = container.resolve(DBInitializer)
         const app = container.resolve(Application)
 
         routesInitialazer.initRoutes()
