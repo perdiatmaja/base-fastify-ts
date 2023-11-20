@@ -2,6 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": ["develop"]
+    },
+    {
       "type": "bashdb",
       "request": "launch",
       "name": "Bash-Debug (select script from list of sh files)",
@@ -15,7 +23,10 @@
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "local"]
+      "runtimeArgs": [
+        "run-script",
+        "local"
+      ]
     },
     {
       "name": "prod",
@@ -23,7 +34,10 @@
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "prod"]
+      "runtimeArgs": [
+        "run-script",
+        "prod"
+      ]
     }
   ]
 }

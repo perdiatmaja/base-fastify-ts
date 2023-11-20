@@ -30,16 +30,25 @@ if isRelease and version != versionHistory[RELEASE]:
     packageData["version"] = f"{version}"
 
 elif branch == "develop":
+    version = version.replace(f"-{SNAPSHOT}", "")
     versionArr = version.split(".")
     buildNo = int(versionArr[len(versionArr) - 1]) + 1
     version = (
         f"{versionArr[0]}.{versionArr[1]}.{buildNo}-{SNAPSHOT}"
         if version == versionHistory[SNAPSHOT]
-        else versionHistory[SNAPSHOT]
+        else f"{version}-{SNAPSHOT}"
     )
     packageData["version"] = f"{version}"
+    versionHistory[SNAPSHOT]=version
 
 with open("package.json", "w") as outfile:
     json.dump(packageData, outfile)
+
+versionHistoryFile = open("version_history", "w")
+
+for key in versionHistory:
+    versionHistoryFile.writelines(f"{key}={versionHistory[key]}\n")
+
+versionHistoryFile.close()
 
 print(version)
