@@ -18,3 +18,4 @@ src/**/*
 version_updater.py
 version_history
 clear.sh
+.github
