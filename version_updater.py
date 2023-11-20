@@ -54,4 +54,4 @@ for key in versionHistories:
 
 versionHistoryFile.close()
 
-print(version)
+print(packageData["version"])
