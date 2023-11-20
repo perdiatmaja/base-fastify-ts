@@ -1,7 +1,7 @@
 #!/bin/bash
 
-./install.sh
-./build.sh
+# ./install.sh
+# ./build.sh
 
 RELEASE="^(release)+(\/\w\.\w\.\w)$"
 DEVELOP="develop"

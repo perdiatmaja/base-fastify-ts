@@ -2,6 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "bashdb",
+      "request": "launch",
+      "name": "Bash-Debug (select script from list of sh files)",
+      "cwd": "${workspaceFolder}",
+      "program": "${command:SelectScriptName}",
+      "args": []
+    },
+    {
       "name": "local",
       "type": "node",
       "request": "launch",
@@ -16,14 +24,6 @@
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "prod"]
-    },
-    {
-      "name": "startJS",
-      "type": "node",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "startJs"]
     }
   ]
 }
