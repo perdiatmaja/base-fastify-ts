@@ -42,7 +42,7 @@ elif branch == "develop":
     versionHistory[SNAPSHOT]=version
 
 with open("package.json", "w") as outfile:
-    json.dump(packageData, outfile)
+    json.dump(packageData, outfile, indent=4)
 
 versionHistoryFile = open("version_history", "w")
 
