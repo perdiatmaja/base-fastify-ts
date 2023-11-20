@@ -38,17 +38,6 @@
         "run-script",
         "prod"
       ]
-    },
-    {
-      "name": "test",
-      "type": "node",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run-script",
-        "test"
-      ]
     }
   ]
 }

@@ -9,8 +9,7 @@
     "license": "ISC",
     "scripts": {
         "prod": "ts-node ./src/main/index.ts",
-        "local": "ts-node ./src/main/index.ts local",
-        "test": "ts-mocha -p ./tsconfig.json src/test/**/*.test.ts"
+        "local": "ts-node ./src/main/index.ts local"
     },
     "repository": {
         "type": "git",
