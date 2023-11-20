@@ -16,8 +16,4 @@ then
     echo $version
     git add .
     git commit -m "Update version to $version"
-    git push
-    npm publish
 fi
-
-./clear.sh

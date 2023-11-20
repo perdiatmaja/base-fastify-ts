@@ -8,7 +8,6 @@ node_modules
 .npmignore
 build.sh
 deploy.sh
-publish.sh
 docker-compose.yml
 Dockerfile
 install.sh
@@ -16,6 +15,7 @@ tsconfig.builder.json
 tsconfig.json
 src/**/*
 version_updater.py
+version_updater.sh
 version_history
 clear.sh
 .github
