@@ -5,6 +5,8 @@ name: Develop
 
 on:
   push:
+  pull_request:
+    branches: [release/**, develop]
 
 jobs:
   build:
@@ -19,7 +21,7 @@ jobs:
       - run: npm ci
 
   publish-npm:
-    if: contains('refs/heads/develop refs/heads/main', github.ref)
+    if: contains('refs/heads/develop refs/heads/release/', github.ref) && github.event.pull_request.merged == true
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +30,9 @@ jobs:
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
+      - run: ./version_updater.sh
       - run: npm ci
-      - run: ./publish.sh
+      - run: npm publish
+      - run: git push
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
