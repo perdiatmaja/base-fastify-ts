@@ -1,10 +1,8 @@
-# Base Fastify TS @perdiatmaja
+# Springify.ts@perdiatmaja
 
 ## **Introduction**
 
 This is a node js framework that based on Fastify. Simplify the use of fastify using decorator, it similar with JAVA Spring boot.
-
-
 
 ## **Installation:**
 
