@@ -15,5 +15,6 @@ install.sh
 tsconfig.builder.json
 tsconfig.json
 src/**/*
-version_update.py
+version_updater.py
 version_history
+clear.sh
