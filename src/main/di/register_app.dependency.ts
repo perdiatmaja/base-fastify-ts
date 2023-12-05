@@ -1,12 +1,12 @@
 import { container } from 'tsyringe';
 import Application from "../application"
 import AppConfig from "../configs/app.config"
-import RoutesInitialazer from "../modules/app/routers.initialazer"
+import RoutesInitializer from "../modules/app/routers.initializer"
 
-const registerAppDependecny = () => {
+const registerAppDependency = () => {
     container.registerSingleton<Application>(Application)
     container.registerSingleton<AppConfig>(AppConfig)
-    container.registerSingleton<RoutesInitialazer>(RoutesInitialazer)
+    container.registerSingleton<RoutesInitializer>(RoutesInitializer)
 }
 
-export default registerAppDependecny
+export default registerAppDependency

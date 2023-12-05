@@ -15,6 +15,8 @@ import RouteNotFoundError from '../error/route_not_found.error';
 import fastifyMultipart from '@fastify/multipart';
 import auth from 'basic-auth';
 import BaseResponse from '../modules/app/base_response';
+import BasePlugin from './base.config';
+import registerAppDependency from 'di/register_app.dependency';
 
 enum CONFIG_KEY {
     SECURE_SESSION_ENABLED,
@@ -31,7 +33,7 @@ interface BasicAuthHandler<T> {
 }
 
 @singleton()
-class AppConfig {
+class AppConfig implements BasePlugin {
     private readonly fastify: FastifyInstance
     private static _configDataMap: Map<string, any> = new Map() 
 
@@ -40,6 +42,8 @@ class AppConfig {
     }
 
     init() {
+        registerAppDependency()
+
         this.initDecoration()
         this.initOnRequest()
         this.initPreValidation()
@@ -131,4 +135,4 @@ class AppConfig {
     }
 }
 
-export default AppConfig
+export = AppConfig

@@ -1,16 +1,17 @@
 import { Sequelize } from "sequelize-typescript";
 import { injectable } from "tsyringe";
 import AdminModel from "../models/admin.model";
+import BasePlugin from "./base.config";
 
 @injectable()
-class DBInitializer {
+class DBInitializer implements BasePlugin {
     private readonly sequelize: Sequelize
 
     constructor(sequelize: Sequelize) {
         this.sequelize = sequelize
     }
 
-    initModels() {
+    init() {
         const models = [
             AdminModel
         ]
@@ -21,4 +22,4 @@ class DBInitializer {
     }
 }
 
-export default DBInitializer
+export = DBInitializer

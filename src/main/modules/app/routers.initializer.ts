@@ -1,9 +1,11 @@
 import { container, singleton } from 'tsyringe';
 import FileUtils from '../../utils/file.utils';
+import BasePlugin from 'configs/base.config';
 
 @singleton()
-class RoutesInitialazer {
-    initRoutes() {
+class RoutesInitializer implements BasePlugin {
+    
+    init() {
         const directoryPath: string = `${process.cwd()}${process.env.ROUTER_PATH}`
         const filePaths: string[] = FileUtils.getFileList(directoryPath)
 
@@ -17,4 +19,4 @@ class RoutesInitialazer {
     }
 }
 
-export default RoutesInitialazer
+export = RoutesInitializer
