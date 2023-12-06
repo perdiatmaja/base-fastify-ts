@@ -42,14 +42,6 @@ To start the app yo must define the env, for local please name it .env.local, or
 COOKIE_NAME=""
 IP_BIND=""
 PORT=""
-DB_NAME="example"
-DB_USERNAME="root"
-DB_PASSWORD="root"
-DB_DIALECT="mysql"
-DB_HOST="localhost"
-DB_PORT="3306"
-DB_LOG=true
-ASSETS_PATH=""
 ROUTER_PATH="/routers/"
 ```
 
@@ -59,19 +51,21 @@ Start the application
 
 ```typescript
 import "reflect-metadata"
-import dotenv from 'dotenv';
-import { SpringifyApp } from "springify.ts";
+import dotenv from 'dotenv'
+import { container } from "tsyringe"
+import { SpringifyApp } from "springify.ts"
 
 const env = `.env${process.argv.length > 2 ? ".".concat(process.argv[2]) : ""}`
 dotenv.config({ path: `${process.env.PWD}/${env}` })
-
-SpringifyApp.start()
+const app: SpringifyApp = container.resolve(SpringifyApp)
+    
+app.start()
 ```
 
 Create new Router:
 
 ```typescript
-import { GET, POST, PathMapping, SpringifyRouter, Transactional } from "springify.ts";
+import { GET, POST, PathMapping, SpringifyRouter } from "springify.ts";
 import { injectable } from "tsyringe";
 
 @injectable()
@@ -83,7 +77,6 @@ class TestRouter extends SpringifyRouter {
     }
 
     @POST("/")
-    @Transactional()
     public async testPost(): Promise<any> {
         return "Test"
     }
