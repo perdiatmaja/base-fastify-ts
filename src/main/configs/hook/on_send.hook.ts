@@ -1,11 +1,11 @@
 import { FastifyRequest, FastifyReply, DoneFuncWithErrOrRes } from 'fastify';
-import AppConfig from '../app.config';
+import AppConfig, { onSendHandler } from '../app.config';
 import BaseResponse from '../../modules/app/base_response';
 
 const onSendHook = (_: FastifyRequest, reply: FastifyReply, payload: any, done: DoneFuncWithErrOrRes) => {
     const payloadJson: BaseResponse<any> = JSON.parse(payload)
 
-    const onSendHandler = AppConfig.getOnSendHandler()
+    const onSendHandler: onSendHandler | undefined = AppConfig.getOnSendHandler()
 
     if (onSendHandler) {
         onSendHandler.handle(payloadJson) 

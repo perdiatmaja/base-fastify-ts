@@ -3,6 +3,7 @@ import { container, singleton } from 'tsyringe'
 import AppConfig from './configs/app.config'
 import EnvConfig from './constants/env_config.constant'
 import BasePlugin from 'configs/base.config'
+import RoutesInitializer from './modules/app/routers.initializer'
 
 @singleton()
 class Application {
@@ -11,6 +12,17 @@ class Application {
 
     constructor(private readonly envConfig: EnvConfig) {
         this._fastify = Fastify({})
+        this.registerPlugin(container.resolve(RoutesInitializer))
+    }
+
+    public registerPlugins(plugins: BasePlugin[]) {
+        plugins.forEach(plugin => {
+            this._plugins.push(plugin)
+        })
+    }
+
+    public registerPlugin(plugin: BasePlugin) {
+        this._plugins.push(plugin)
     }
 
     private async init() {
@@ -43,6 +55,10 @@ class Application {
     protected onStart() {
         //No operation
     }
+
+    public start() {
+        this.init()
+    }
 }
 
-export = Application
+export default Application

@@ -16,7 +16,7 @@ import fastifyMultipart from '@fastify/multipart';
 import auth from 'basic-auth';
 import BaseResponse from '../modules/app/base_response';
 import BasePlugin from './base.config';
-import registerAppDependency from 'di/register_app.dependency';
+import registerAppDependency from '../di/register_app.dependency';
 
 enum CONFIG_KEY {
     SECURE_SESSION_ENABLED,
@@ -24,11 +24,11 @@ enum CONFIG_KEY {
     BASIC_AUTH_HANDLER
 }
 
-interface onSendHandler {
+export interface onSendHandler {
     handle<T>(payload: BaseResponse<T>): void
 }
 
-interface BasicAuthHandler<T> {
+export interface BasicAuthHandler<T> {
     handle(basicAuth: auth.BasicAuthResult | undefined, pathRoleLevel: number): T
 }
 
@@ -122,7 +122,7 @@ class AppConfig implements BasePlugin {
         AppConfig._configDataMap.set(CONFIG_KEY.ON_SEND_HANDLER.toString(), handler)
     }
 
-    public static getOnSendHandler(): onSendHandler {
+    public static getOnSendHandler(): onSendHandler | undefined {
         return AppConfig._configDataMap.get(CONFIG_KEY.ON_SEND_HANDLER.toString())
     }
 
@@ -135,4 +135,4 @@ class AppConfig implements BasePlugin {
     }
 }
 
-export = AppConfig
+export default  AppConfig

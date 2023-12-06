@@ -14,8 +14,10 @@ class Application {
     }
 
     private async init() {}
-    public get fastify(): FastifyInstance { return this._fastify };
-    public static start(onStart?: onStart) {}
+    public get fastify(): FastifyInstance { return this._fastify }
+    private initPlugins() {}
+    protected onStart() {}
+    public start() {}
 }
 
 export = Application

@@ -1,5 +1,4 @@
 import fs from 'fs-extra'
-import { v4 as uuid } from 'uuid'
 import AppLogger from './logger.utils';
 import GeneralError from '../error/general.errror';
 import { parse } from 'csv-parse';
@@ -8,13 +7,7 @@ import path from 'path';
 
 export type FileCategoryType = '/csv/' | '/icon/package/' | '/img/promo/'
 export const FiletCategory = {
-    CSV: "/csv/" as FileCategoryType,
-    ICON: {
-        PACKAGE: "/icon/package/" as FileCategoryType
-    },
-    IMG: {
-        PROMO: "/img/promo/" as FileCategoryType
-    }
+    CSV: "/csv/" as FileCategoryType
 }
 
 class FileUtils {
@@ -22,9 +15,7 @@ class FileUtils {
     static async saveFile(file: Multipart, category: string): Promise<string | undefined> {
         return new Promise(async (res, rej) => {
             try {
-                const ext = `.${file.filename.split('.')[1]}`
-                const generatedName = `${uuid()}${ext}`
-                const filePath = `${category}${generatedName}`
+                const filePath = `${category}${file.filename}`
                 const dest = `${process.env.ASSETS_PATH}${filePath}`
                 const data = (await file.toBuffer()).toString()
 

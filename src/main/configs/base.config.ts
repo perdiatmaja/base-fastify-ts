@@ -2,4 +2,4 @@ interface BasePlugin {
     init(): void
 }
 
-export = BasePlugin
+export default BasePlugin
