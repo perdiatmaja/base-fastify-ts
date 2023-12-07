@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import dotenv from 'dotenv'
 import { container } from "tsyringe"
-import Application from "./application"
+import Application from "../main/application"
 
 try {
     const env = `.env${process.argv.length > 2 ? ".".concat(process.argv[2]) : ""}`
