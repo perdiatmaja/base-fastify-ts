@@ -1,11 +1,11 @@
 import { container, singleton } from 'tsyringe';
 import FileUtils from '../../utils/file.utils';
-import BasePlugin from 'configs/base.config';
+import BasePlugin from 'configs/base.plugin';
 
 @singleton()
 class RoutesInitializer implements BasePlugin {
     
-    init() {
+    async init() {
         const directoryPath: string = `${process.cwd()}${process.env.ROUTER_PATH}`
         const filePaths: string[] = FileUtils.getFileList(directoryPath)
 

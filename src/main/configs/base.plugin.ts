@@ -1,5 +1,5 @@
 interface BasePlugin {
-    init(): void
+    init(): Promise<void>
 }
 
 export default BasePlugin

@@ -2,7 +2,7 @@ import Fastify, { FastifyInstance } from 'fastify'
 import { container, singleton } from 'tsyringe'
 import AppConfig from './configs/app.config'
 import EnvConfig from './constants/env_config.constant'
-import BasePlugin from 'configs/base.config'
+import BasePlugin from 'configs/base.plugin'
 import RoutesInitializer from './modules/app/routers.initializer'
 
 @singleton()
@@ -26,7 +26,7 @@ class Application {
     }
 
     private async init() {
-        this.initPlugins()
+        await this.initPlugins()
 
         const appConfig = container.resolve(AppConfig)
         const address = this.envConfig.IP_BIND
@@ -48,8 +48,8 @@ class Application {
         return this._fastify
     }
 
-    private initPlugins() {
-        this._plugins.forEach(plugin => plugin.init())
+    private async initPlugins() {
+        this._plugins.forEach(async (plugin) => await plugin.init())
     }
 
     protected onStart() {
