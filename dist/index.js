@@ -1,11 +1,11 @@
-const SpringifyApp = require("./js/src/main/application")
-const AppConfig = require("./js/src/main/configs/app.config")
-const Router = require("./js/src/main/modules/app/base.router")
-const Response = require("./js/src/main/modules/app/base_response")
+const SpringifyApp = require("./js/application")
+const AppConfig = require("./js/configs/app.config")
+const Router = require("./js/modules/app/base.router")
+const Response = require("./js/modules/app/base_response")
 
-const ClassDecorator = require("./js/src/main/decorators/classes/index")
-const MethodDecorator = require("./js/src/main/decorators/methods/index")
-const ParamDecorator = require("./js/src/main/decorators/parameters/index")
+const ClassDecorator = require("./js/decorators/classes/index")
+const MethodDecorator = require("./js/decorators/methods/index")
+const ParamDecorator = require("./js/decorators/parameters/index")
 
 module.exports = SpringifyApp.default
 module.exports.default = SpringifyApp.default
