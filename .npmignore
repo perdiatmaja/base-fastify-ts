@@ -11,7 +11,7 @@ deploy.sh
 docker-compose.yml
 Dockerfile
 install.sh
-tsconfig.builder.json
+tsconfig.build.json
 tsconfig.json
 src/**/*
 version_updater.py
