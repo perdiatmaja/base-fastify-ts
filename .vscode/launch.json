@@ -18,25 +18,14 @@
       "args": []
     },
     {
-      "name": "local",
+      "name": "demo",
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "run-script",
-        "local"
-      ]
-    },
-    {
-      "name": "prod",
-      "type": "node",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run-script",
-        "prod"
+        "demo"
       ]
     }
   ]

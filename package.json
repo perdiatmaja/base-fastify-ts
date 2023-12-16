@@ -1,6 +1,6 @@
 {
     "name": "springify.ts",
-    "version": "0.0.21-SNAPSHOT",
+    "version": "0.0.22-SNAPSHOT",
     "description": "A framework like JAVA Spring mean for every Java Programmer that need low resource tools for an Restful Service.",
     "type": "commonjs",
     "main": "./dist/index.js",
@@ -8,8 +8,7 @@
     "author": "perdi.atmaja@outlook.com",
     "license": "ISC",
     "scripts": {
-        "prod": "ts-node ./src/main/index.ts",
-        "local": "ts-node ./src/main/index.ts local"
+        "demo": "ts-node ./src/demo/index.ts"
     },
     "repository": {
         "type": "git",

@@ -1,8 +1,7 @@
 import Fastify, { FastifyInstance } from 'fastify'
 import { container, singleton } from 'tsyringe'
 import AppConfig from './configs/app.config'
-import EnvConfig from './constants/env_config.constant'
-import BasePlugin from 'configs/base.plugin'
+import BasePlugin from './configs/base.plugin'
 import RoutesInitializer from './modules/app/routers.initializer'
 
 @singleton()
@@ -10,9 +9,8 @@ class Application {
     private readonly _fastify: FastifyInstance
     private readonly _plugins: BasePlugin[] = []
 
-    constructor(private readonly envConfig: EnvConfig) {
+    constructor() {
         this._fastify = Fastify({})
-        this.registerPlugin(container.resolve(RoutesInitializer))
     }
 
     public registerPlugins(plugins: BasePlugin[]) {
@@ -26,20 +24,14 @@ class Application {
     }
 
     private async init() {
+        this.registerPlugin(container.resolve(RoutesInitializer))
         await this.initPlugins()
 
         const appConfig = container.resolve(AppConfig)
-        const address = this.envConfig.IP_BIND
-        const port = this.envConfig.PORT ? this.envConfig.PORT : 3000
-
         appConfig.init()
+        await this._fastify.listen(3000)
 
-        if (address) {
-            await this._fastify.listen(port, address)
-        } else {
-            await this._fastify.listen(port)
-        }
-        console.info(`Connected at: http://${address ? address : 'localhost'}:${port}`)
+        console.info(`Connected at: http://localhost:3000`)
         
         this.onStart()
     }
@@ -56,8 +48,8 @@ class Application {
         //No operation
     }
 
-    public start() {
-        this.init()
+    public async start() {
+       await this.init()
     }
 }
 

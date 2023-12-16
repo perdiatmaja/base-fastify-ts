@@ -1,23 +1,16 @@
-import Fastify, { FastifyInstance } from 'fastify'
+import { FastifyInstance } from 'fastify'
+import BasePlugin from './springify.plugin'
 
-interface onStart {
-    /*
-    *Callback before the app started
-    */
-    (): void
-}
+declare class Application {
+    constructor();
 
-class Application {
-    private readonly _fastify: FastifyInstance
-    constructor() {
-        this._fastify = Fastify({})
-    }
-
-    private async init() {}
-    public get fastify(): FastifyInstance { return this._fastify }
-    private initPlugins() {}
-    protected onStart() {}
-    public start() {}
+    public registerPlugins(plugins: BasePlugin[]): void;
+    public registerPlugin(plugin: BasePlugin): void;
+    private init(): Promise<void>
+    public get fastify(): FastifyInstance;
+    private initPlugins(): void;
+    protected onStart(): void;
+    public start(): Promise<void>;
 }
 
 export = Application

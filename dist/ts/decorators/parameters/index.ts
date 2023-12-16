@@ -1,33 +1,16 @@
-interface ParameterDescription {
-    type?: string
-    empty?: boolean
-    name?: string
-}
 declare function setRequestBodyProperty(target: Object, propertyKey: string, parameterIndex: number):
-    (target: any, propertyKey: string, parameterIndex: number, parameterDescription: ParameterDescription) => any;
+    (target: Object, propertyKey: string, parameterIndex: number) => any;
 
-declare function setPathParamProperty(paramName?: string):
-    (target: any, propertyKey: string, parameterIndex: number, parameterDescription: ParameterDescription) => any;
-
-declare function setQueryParamProperty(paramName?: string):
-    (target: any, propertyKey: string, parameterIndex: number, parameterDescription: ParameterDescription) => any;
+declare function setParamProperty(paramName?: string):
+    (target: Object, propertyKey: string, parameterIndex: number) => any;
 
 declare function setNotEmptyProperty(target: Object, propertyKey: string, parameterIndex: number):
-    (target: any, propertyKey: string, parameterIndex: number, parameterDescription: ParameterDescription) => any;
-
-declare function setRequestProperty(target: Object, propertyKey: string, parameterIndex: number):
-    (target: any, propertyKey: string, parameterIndex: number, parameterDescription: ParameterDescription) => any;
-
-declare function setMultipartFileProperty(paramName?: string):
-    (target: any, propertyKey: string, parameterIndex: number, parameterDescription: ParameterDescription) => any;
-
-declare function setMultipartParamProperty(paramName?: string):
-    (target: any, propertyKey: string, parameterIndex: number, parameterDescription: ParameterDescription) => any;
+    (target: Object, propertyKey: string, parameterIndex: number) => any;
 
 export { setRequestBodyProperty as RequestBody }
-export { setPathParamProperty as PathParam }
-export { setQueryParamProperty as QueryParam }
+export { setParamProperty as PathParam }
+export { setParamProperty as QueryParam }
 export { setNotEmptyProperty as NotEmpty }
 export { setRequestBodyProperty as Request }
-export { setMultipartFileProperty as MultipartFile }
-export { setMultipartParamProperty as MultipartParam }
+export { setParamProperty as MultipartFile }
+export { setParamProperty as MultipartParam }

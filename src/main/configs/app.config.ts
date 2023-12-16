@@ -37,7 +37,7 @@ class AppConfig implements BasePlugin {
     private readonly fastify: FastifyInstance
     private static _configDataMap: Map<string, any> = new Map() 
 
-    constructor(@inject(delay(() => Application)) application: Application, private readonly envConfig: EnvConfig) {
+    constructor(@inject(delay(() => Application)) application: Application) {
         this.fastify = application.fastify
     }
 
@@ -84,7 +84,7 @@ class AppConfig implements BasePlugin {
     private initSecureSession() {
         if (AppConfig._configDataMap.get(CONFIG_KEY.SECURE_SESSION_ENABLED.toString()) ?? false) {
             this.fastify.register(SecureSessionPlugin, {
-                cookieName: this.envConfig.COOKIE_NAME,
+                cookieName: "",
                 key: this.getSecretKey()
             })
         }
@@ -111,7 +111,7 @@ class AppConfig implements BasePlugin {
     }
 
     private getSecretKey(): Buffer {
-        return fs.readFileSync(join(this.envConfig.PROJECT_ROOT, `/secret-key`))
+        return fs.readFileSync(join("", `/secret-key`))
     }
 
     public static enableSecureSession(enable: boolean) {
